@@ -1,18 +1,15 @@
 import { map } from "../main.js";
 
 export default class Point {
-  constructor(x, y, size, fixed) {
+  constructor(x, y, size) {
     this.x = x;
     this.y = y;
     this.pixelX = x + map.marginLeft;
     this.pixelY = y + map.marginTop;
     this.gridSize = size;
-    this.fixed = fixed;
   }
 
   getGridPosition() {
-    console.log(this.x, this.y);
-    console.log(this.pixelX, this.pixelY);
     return {
       x: Math.floor(
         (this.pixelX - map.marginLeft + this.gridSize / 2) / this.gridSize,

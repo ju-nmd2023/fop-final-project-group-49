@@ -2,7 +2,7 @@ import Point from "./point.js";
 
 export default class Block {
   constructor(x, y, size) {
-    this.position = new Point(x, y, size, true);
+    this.position = new Point(x, y, size);
     this.size = size;
   }
 

@@ -11,21 +11,18 @@ let size = 60;
 
 export let map = new Map(900, 780, size);
 export let player = new Player(0, 0, size);
-let block1 = new Block(60, 60, size);
 
 function setup() {
   frameRate(60);
   createCanvas(1000, 1000);
   background(0);
-  map.generate();
+  map.generate(1);
 }
 
 function draw() {
-  console.log(player.position.getGridPosition());
   clear();
   player.draw();
   map.draw();
-  block1.draw();
   if (keyIsDown(UP_ARROW)) {
     player.moveUp();
   } else if (keyIsDown(DOWN_ARROW)) {
