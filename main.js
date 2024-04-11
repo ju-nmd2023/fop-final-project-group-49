@@ -1,16 +1,41 @@
 import Player from "./classes/player.js";
+import Map from "./classes/map.js";
+import Block from "./classes/block.js";
 
-let player = new Player();
+// Create a new player and map
+// The player (x, y, size)
+// The map (width, height, gridSize)
+// size is the size of the player and the grid
+
+let size = 60;
+
+export let map = new Map(900, 780, size);
+export let player = new Player(0, 0, size);
+let block1 = new Block(60, 60, size);
 
 function setup() {
-  createCanvas(500, 500);
+  frameRate(60);
+  createCanvas(1000, 1000);
   background(0);
+  map.generate();
+}
+
+function draw() {
+  console.log(player.position.getGridPosition());
+  clear();
+  player.draw();
+  map.draw();
+  block1.draw();
+  if (keyIsDown(UP_ARROW)) {
+    player.moveUp();
+  } else if (keyIsDown(DOWN_ARROW)) {
+    player.moveDown();
+  } else if (keyIsDown(LEFT_ARROW)) {
+    player.moveLeft();
+  } else if (keyIsDown(RIGHT_ARROW)) {
+    player.moveRight();
+  }
 }
 
 window.setup = setup;
-
-function draw() {
-  player.draw();
-}
-
 window.draw = draw;
