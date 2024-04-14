@@ -6,6 +6,7 @@ export default class Player {
     this.size = size;
     this.direction = 0;
   }
+  
   draw() {
     fill(255);
     rect(this.position.pixelX, this.position.pixelY, this.size);

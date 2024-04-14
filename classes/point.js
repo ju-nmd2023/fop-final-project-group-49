@@ -12,10 +12,10 @@ export default class Point {
   getGridPosition() {
     return {
       x: Math.floor(
-        (this.pixelX - map.marginLeft + this.gridSize / 2) / this.gridSize,
+        (this.x + this.gridSize / 2) / this.gridSize,
       ),
       y: Math.floor(
-        (this.pixelY - map.marginTop + this.gridSize / 2) / this.gridSize,
+        (this.y + this.gridSize / 2) / this.gridSize,
       ),
     };
   }

@@ -1,6 +1,5 @@
 import Player from "./classes/player.js";
 import Map from "./classes/map.js";
-import Block from "./classes/block.js";
 
 // Create a new player and map
 // The player (x, y, size)
@@ -10,7 +9,7 @@ import Block from "./classes/block.js";
 let size = 60;
 
 export let map = new Map(900, 780, size);
-export let player = new Player(0, 0, size);
+let player = new Player(0, 0, size);
 
 function setup() {
   frameRate(60);
