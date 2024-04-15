@@ -1,4 +1,5 @@
 import Point from "./point.js";
+import { map } from "../main.js";
 
 export default class Player {
   constructor(x, y, size) {
@@ -16,19 +17,27 @@ export default class Player {
   }
 
   moveUp() {
+    // this.checkCollision();
     this.position.pixelY -= 1;
     this.position.y -= 1;
   }
   moveDown() {
+    // this.checkCollision();
     this.position.pixelY += 1;
     this.position.y += 1;
   }
   moveLeft() {
+    // this.checkCollision();
     this.position.pixelX -= 1;
     this.position.x -= 1;
   }
   moveRight() {
+    // this.checkCollision();
     this.position.pixelX += 1;
     this.position.x += 1;
   }
+  // checkCollision() {  // loopa igenom blocks, jämföra position med block, jämföra nästa position
+  // for (i = 0; i < Block.length; )
+
+  // }
 }
