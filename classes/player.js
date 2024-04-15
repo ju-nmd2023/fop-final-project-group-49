@@ -17,27 +17,41 @@ export default class Player {
   }
 
   moveUp() {
-    // this.checkCollision();
-    this.position.pixelY -= 1;
-    this.position.y -= 1;
+    if (this.checkCollision(0, -1) === true) {
+      this.position.pixelY -= 1;
+      this.position.y -= 1;
+    }
   }
   moveDown() {
-    // this.checkCollision();
-    this.position.pixelY += 1;
-    this.position.y += 1;
+    if (this.checkCollision(0, 1) === true) {
+      this.position.pixelY += 1;
+      this.position.y += 1;
+    }
   }
   moveLeft() {
-    // this.checkCollision();
-    this.position.pixelX -= 1;
-    this.position.x -= 1;
+    if (this.checkCollision(-1, 0) === true) {
+      this.position.pixelX -= 1;
+      this.position.x -= 1;
+    }
   }
   moveRight() {
-    // this.checkCollision();
-    this.position.pixelX += 1;
-    this.position.x += 1;
+    if (this.checkCollision(1, 0) === true) {
+      this.position.pixelX += 1;
+      this.position.x += 1;
+    }
   }
-  // checkCollision() {  // loopa igenom blocks, jämföra position med block, jämföra nästa position
-  // for (i = 0; i < Block.length; )
+  checkCollision(directionX, directionY) {
+    let playerPosition = this.position.getGridPosition();
 
-  // }
+    if (playerPosition.x && playerPosition.y) {
+      if (
+        map.grid[playerPosition.x + directionX][
+          playerPosition.y + directionY
+        ] === undefined
+      ) {
+        return false;
+      }
+    }
+  }
 }
+// fix pixel position
