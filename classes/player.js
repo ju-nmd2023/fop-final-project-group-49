@@ -4,9 +4,12 @@ export default class Player {
   constructor(x, y, size) {
     this.position = new Point(x, y, size);
     this.size = size;
-    this.direction = 0;
+    this.direction = 0; // The direction the player is facing, to animate the player
+    this.powerups = []; // The active powerups
+    this.lives = 1; // The amount of lives the player has default always one, can be increased
+    this.skin = 0; // The skin of the player
   }
-  
+
   draw() {
     fill(255);
     rect(this.position.pixelX, this.position.pixelY, this.size);
