@@ -20,8 +20,8 @@ function setup() {
 
 function draw() {
   clear();
-  player.draw();
   map.draw();
+  player.draw();
   if (keyIsDown(UP_ARROW)) {
     player.moveUp();
   } else if (keyIsDown(DOWN_ARROW)) {

@@ -8,6 +8,7 @@ export default class Map {
     this.marginLeft = (1000 - width) / 2; // The left margin of the map. To center the map when drawn
     this.marginTop = (1000 - height) / 2; // The top margin of the map. To center the map when drawn
     this.grid = [];
+    this.powerupTypes = ["bomb", "fire", "speed"];
   }
 
   draw() {
@@ -21,8 +22,8 @@ export default class Map {
     }
 
     // Loops through the grid and draws the blocks
-    this.grid.forEach((xRow, xIndex) => {
-      xRow.forEach((yRow, yIndex) => {
+    this.grid.forEach((xRow) => {
+      xRow.forEach((yRow) => {
         if (yRow != undefined) {
           yRow.draw();
         }
@@ -34,6 +35,7 @@ export default class Map {
     loadJSON(`../maps/map${i}.json`, (data) => {
       let map = data;
 
+      // This creates all blocks in the grid
       for (let xIndex = 0; xIndex < map.length; xIndex++) {
         this.grid.push([]);
         for (let yIndex = 0; yIndex < map[xIndex].length; yIndex++) {
@@ -56,6 +58,20 @@ export default class Map {
           }
         }
       }
+
+      // This creates the powerups
+      this.grid.forEach((xRow) => {
+        xRow.forEach((yRow) => {
+          if (yRow != undefined) {
+            this.powerupTypes.forEach((powerupType) => {
+              if (Math.random() < 1 / this.powerupTypes.length) {
+                yRow.powerup = powerupType;
+                return;
+              }
+            });
+          }
+        });
+      });
     });
   }
 }
