@@ -9,7 +9,7 @@ import Map from "./classes/map.js";
 let size = 60;
 
 export let map = new Map(900, 780, size);
-let player = new Player(0, 0, size);
+let player = new Player(120, 0, size);
 
 function setup() {
   frameRate(60);
@@ -20,8 +20,8 @@ function setup() {
 
 function draw() {
   clear();
-  player.draw();
   map.draw();
+  player.draw();
   if (keyIsDown(UP_ARROW)) {
     player.moveUp();
   } else if (keyIsDown(DOWN_ARROW)) {

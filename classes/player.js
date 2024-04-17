@@ -12,7 +12,7 @@ export default class Player {
   }
 
   draw() {
-    fill(255);
+    fill(255, 255, 0);
     rect(this.position.pixelX, this.position.pixelY, this.size);
   }
 
@@ -42,16 +42,18 @@ export default class Player {
   }
   checkCollision(directionX, directionY) {
     let playerPosition = this.position.getGridPosition();
+    let checkBox =
+      map.grid[playerPosition.x + directionX][playerPosition.y + directionY];
 
-    if (playerPosition.x && playerPosition.y) {
-      if (
-        map.grid[playerPosition.x + directionX][
-          playerPosition.y + directionY
-        ] === undefined
-      ) {
-        return false;
-      }
+    if (
+      checkBox === undefined ||
+      checkBox.position.x < this.position.x / this.size
+    ) {
+      return true;
+    } else {
+      console.log(checkBox);
     }
   }
 }
+
 // fix pixel position
