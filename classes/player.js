@@ -3,7 +3,8 @@ import Skin from "./skin.js";
 import { map } from "../main.js";
 
 export default class Player {
-  constructor(x, y, size) {
+  constructor(id, x, y, size) {
+    this.id = id;
     this.position = new Point(x, y, size);
     this.size = size;
     this.direction = 0;

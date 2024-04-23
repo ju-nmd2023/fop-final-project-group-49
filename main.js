@@ -15,7 +15,7 @@ let size = 60;
 // let skinsScreen = new SkinsScreen(0, 0, 500, 500);
 
 export let map = new Map(900, 780, size);
-export let player = new Player(120, 120, size);
+export let player = new Player(0, 120, 120, size);
 
 export let font;
 export let img;
