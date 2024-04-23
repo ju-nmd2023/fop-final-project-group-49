@@ -1,4 +1,6 @@
 import Point from "./point.js";
+import { map } from "../main.js";
+import Powerup from "./powerup.js";
 
 export default class Block {
   constructor(x, y, size, indestructible) {
@@ -19,7 +21,13 @@ export default class Block {
 
   destroy() {
     if (!this.indestructible) {
-      // Detroy that crap
+      let gridPosition = this.position.getGridPosition();
+      map.grid[gridPosition.x][gridPosition.y] = new Powerup(
+        this.position.x,
+        this.position.y,
+        this.size,
+        this.powerup,
+      );
     }
   }
 }

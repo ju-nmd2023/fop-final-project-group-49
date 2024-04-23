@@ -9,7 +9,7 @@ import Map from "./classes/map.js";
 let size = 60;
 
 export let map = new Map(900, 780, size);
-let player = new Player(120, 0, size);
+export let player = new Player(-60, -60, size);
 
 function setup() {
   frameRate(60);
@@ -33,5 +33,11 @@ function draw() {
   }
 }
 
+function mouseClicked(event) {
+  console.log(event);
+  map.generate(1);
+}
+
 window.setup = setup;
 window.draw = draw;
+window.mouseClicked = mouseClicked;

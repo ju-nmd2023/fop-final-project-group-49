@@ -8,12 +8,14 @@ export default class Player {
     this.direction = 0; // The direction the player is facing, to animate the player
     this.powerups = []; // The active powerups
     this.lives = 1; // The amount of lives the player has default always one, can be increased
-    this.skin = 0; // The skin of the player
+    this.skin = undefined; // The skin of the player
   }
 
   draw() {
+    push();
     fill(255, 255, 0);
     rect(this.position.pixelX, this.position.pixelY, this.size);
+    pop();
   }
 
   moveUp() {

@@ -37,18 +37,22 @@ export default class Map {
 
       // This creates all blocks in the grid
       for (let xIndex = 0; xIndex < map.length; xIndex++) {
+        //loops through the map in x and then after y
         this.grid.push([]);
         for (let yIndex = 0; yIndex < map[xIndex].length; yIndex++) {
-          if (map[xIndex][yIndex] == "x") {
+          if (map[xIndex][yIndex] == 1) {
+            // If the block is indestructible
             this.grid[xIndex][yIndex] = new Block(
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
               true,
             );
-          } else if (map[xIndex][yIndex] === "o") {
+          } else if (map[xIndex][yIndex] === 2) {
+            // If the block is clear spawn point
             this.grid[xIndex][yIndex] = undefined;
-          } else if (Math.random() < 1) {
+          } else if (Math.random() < 0.5) {
+            // If the block is destructible
             this.grid[xIndex][yIndex] = new Block(
               xIndex * this.gridSize,
               yIndex * this.gridSize,
@@ -59,10 +63,11 @@ export default class Map {
         }
       }
 
-      // This creates the powerups
+      // This creates the powerups inside the blocks
       this.grid.forEach((xRow) => {
         xRow.forEach((yRow) => {
-          if (yRow != undefined) {
+          if (yRow != undefined && !yRow.indestructible) {
+            // If the block is destructible generate a powerup
             this.powerupTypes.forEach((powerupType) => {
               if (Math.random() < 1 / this.powerupTypes.length) {
                 yRow.powerup = powerupType;
