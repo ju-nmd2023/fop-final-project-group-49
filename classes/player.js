@@ -2,7 +2,8 @@ import Point from "./point.js";
 import { map } from "../main.js";
 
 export default class Player {
-  constructor(x, y, size) {
+  constructor(id, x, y, size) {
+    this.id = id;
     this.position = new Point(x, y, size);
     this.size = size;
     this.direction = "down"; // The direction the player is facing, to animate the player
