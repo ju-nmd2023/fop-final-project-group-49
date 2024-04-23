@@ -15,7 +15,7 @@ let size = 60;
 // let skinsScreen = new SkinsScreen(0, 0, 500, 500);
 
 export let map = new Map(900, 780, size);
-export let player = new Player(0, 0, size);
+export let player = new Player(120, 120, size);
 
 export let font;
 export let img;
@@ -33,8 +33,8 @@ function setup() {
 
 function draw() {
   clear();
-  player.draw();
   map.draw();
+  player.draw();
   if (keyIsDown(UP_ARROW)) {
     player.moveUp();
   } else if (keyIsDown(DOWN_ARROW)) {
