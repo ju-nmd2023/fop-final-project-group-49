@@ -25,6 +25,7 @@ export default class Player {
       this.direction = "up";
     }
   }
+
   moveDown() {
     if (this.checkCollision(0, 1) === true) {
       this.position.pixelY += 1;
@@ -32,6 +33,7 @@ export default class Player {
       this.direction = "down";
     }
   }
+
   moveLeft() {
     if (this.checkCollision(-1, 0) === true) {
       this.position.pixelX -= 1;
@@ -39,6 +41,7 @@ export default class Player {
       this.direction = "left";
     }
   }
+
   moveRight() {
     if (this.checkCollision(1, 0) === true) {
       this.position.pixelX += 1;
@@ -46,9 +49,10 @@ export default class Player {
       this.direction = "right";
     }
   }
+
   checkCollision(directionX, directionY) {
-    let playerGridPosition = this.position.getGridPosition();
-    let checkBox = // If the box youre moving towards.
+    let playerGridPosition = this.position.getGridPosition(); // return grid position in grid block x and y
+    let checkBox = // Is the box youre moving towards.
       map.grid[playerGridPosition.x + directionX][
         playerGridPosition.y + directionY
       ];
@@ -60,12 +64,13 @@ export default class Player {
     if (
       checkBox === undefined ||
       (playerPosition.x > playerGridPosition.x && this.direction === "left") ||
-      (playerPosition.x < playerGridPosition.x + 1 &&
-        this.direction === "right")
+      (playerPosition.x < playerGridPosition.x && this.direction === "right") ||
+      (playerPosition.y > playerGridPosition.y && this.direction === "up") ||
+      (playerPosition.y < playerGridPosition.y && this.direction === "down")
     ) {
       return true;
     } else {
-      console.log(checkBox);
+      return false;
     }
   }
 }

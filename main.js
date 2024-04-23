@@ -5,7 +5,7 @@ import Map from "./classes/map.js";
 // The player (x, y, size)
 // The map (width, height, gridSize)
 // size is the size of the player and the grid
-
+let gamestate = 0; // 0 = menu, 1 = skinscreen, 2 = game, 3 = game over
 let size = 60;
 
 export let map = new Map(900, 780, size);
