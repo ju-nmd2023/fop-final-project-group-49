@@ -9,7 +9,7 @@ import Map from "./classes/map.js";
 let size = 60;
 
 export let map = new Map(900, 780, size);
-let player = new Player(120, 0, size);
+let player = new Player(120, 120, size);
 
 function setup() {
   frameRate(60);
