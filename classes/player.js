@@ -1,15 +1,22 @@
 import Point from "./point.js";
+import Skin from "./skin.js";
 import { map } from "../main.js";
 
 export default class Player {
-  constructor(x, y, size) {
+  constructor(id, x, y, size) {
+    this.id = id;
     this.position = new Point(x, y, size);
     this.size = size;
+    this.direction = 0;
+    this.skin = new Skin(); // Line from gemini 18-04-2024
     this.direction = "down"; // The direction the player is facing, to animate the player
     this.powerups = []; // The active powerups
     this.lives = 1; // The amount of lives the player has default always one, can be increased
-    this.skin = undefined; // The skin of the player
   }
+
+  chooseSkin(skinIndex) {
+    this.skin.setActiveSkin(skinIndex);
+  } // Also from gemini
 
   draw() {
     push();
