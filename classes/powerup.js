@@ -1,4 +1,5 @@
 import Point from "./point.js";
+import { map } from "../main.js";
 
 export default class Powerup {
   constructor(x, y, size, type) {

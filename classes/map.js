@@ -31,7 +31,7 @@ export default class Map {
     });
   }
 
-  generate(i) {
+  async generate(i) {
     loadJSON(`../maps/map${i}.json`, (data) => {
       let map = data;
 
