@@ -28,6 +28,9 @@ export default class Player {
 
   moveUp() {
     if (this.checkCollision(0, -1) === true) {
+      this.position.x = this.position.getGridPosition().x * this.size;
+      this.position.pixelX =
+        this.position.getGridPosition().x * this.size + map.marginLeft;
       this.position.pixelY -= 1;
       this.position.y -= 1;
       this.direction = "up";
@@ -37,6 +40,9 @@ export default class Player {
 
   moveDown() {
     if (this.checkCollision(0, 1) === true) {
+      this.position.x = this.position.getGridPosition().x * this.size;
+      this.position.pixelX =
+        this.position.getGridPosition().x * this.size + map.marginLeft;
       this.position.pixelY += 1;
       this.position.y += 1;
       this.direction = "down";
@@ -46,6 +52,9 @@ export default class Player {
 
   moveLeft() {
     if (this.checkCollision(-1, 0) === true) {
+      this.position.y = this.position.getGridPosition().y * this.size;
+      this.position.pixelY =
+        this.position.getGridPosition().y * this.size + map.marginTop;
       this.position.pixelX -= 1;
       this.position.x -= 1;
       this.direction = "left";
@@ -55,7 +64,9 @@ export default class Player {
 
   moveRight() {
     if (this.checkCollision(1, 0) === true) {
-      // this.position.y = this.position.getGridPosition().y;
+      this.position.y = this.position.getGridPosition().y * this.size;
+      this.position.pixelY =
+        this.position.getGridPosition().y * this.size + map.marginTop;
       this.position.pixelX += 1;
       this.position.x += 1;
       this.direction = "right";
@@ -96,8 +107,5 @@ export default class Player {
     if (powerup !== undefined) {
       this.powerups.push(powerup.pickup());
     }
-    console.log(this.powerups);
   }
 }
-
-// fix pixel position
