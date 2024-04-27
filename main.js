@@ -12,7 +12,7 @@ import SkinsScreen from "./classes/skins-screen.js";
 let size = 60;
 
 // let startScreen = new StartScreen(0, 0, 500, 600);
-// let skinsScreen = new SkinsScreen(0, 0, 500, 500);
+let skinsScreen = new SkinsScreen(0, 0, 500, 500);
 
 export let map = new Map(900, 780, size);
 export let player = new Player(0, 120, 120, size);
