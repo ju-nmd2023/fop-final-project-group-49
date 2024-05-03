@@ -1,6 +1,5 @@
 import Player from "./classes/player.js";
 import Map from "./classes/map.js";
-import Block from "./classes/block.js";
 import StartScreen from "./classes/start-screen.js";
 import SkinsScreen from "./classes/skins-screen.js";
 import Result from "./classes/result-screen.js";
@@ -9,7 +8,7 @@ import Result from "./classes/result-screen.js";
 // The player (x, y, size)
 // The map (width, height, gridSize)
 // size is the size of the player and the grid
-
+let gamestate = 0; // 0 = menu, 1 = skinscreen, 2 = game, 3 = game over
 let size = 60;
 
 export let START_SCREEN = 1; // Naming variables from gemini 29-04-2024
@@ -33,11 +32,13 @@ function preload() {
   img = loadImage("assets/BabelGameByggnader.png");
 }
 
-function setup() {
+async function setup() {
   frameRate(60);
   createCanvas(1000, 1000);
   background(0);
-  map.generate(1);
+  await map.generate(1);
+
+  console.log(map.grid);
 }
 
 function draw() {
@@ -65,6 +66,10 @@ function draw() {
 
   // if (this.chooseSkinButton(mouseX, mouseY, 400, 900))
   //   player.skin.activeskin = 2;
+  //skinsScreen.draw();
+  if (keyIsDown(BACKSPACE)) {
+    player.placeBomb();
+  }
 }
 
 function mouseClicked(event) {

@@ -1,4 +1,5 @@
 import Block from "./block.js";
+import Bomb from "./bomb.js";
 
 export default class Map {
   constructor(width, height, gridSize) {
@@ -24,14 +25,16 @@ export default class Map {
     // Loops through the grid and draws the blocks
     this.grid.forEach((xRow) => {
       xRow.forEach((yRow) => {
-        if (yRow != undefined) {
+        if (yRow instanceof Bomb) {
+          yRow.explode();
+        } else if (yRow != undefined) {
           yRow.draw();
         }
       });
     });
   }
 
-  generate(i) {
+  async generate(i) {
     loadJSON(`../maps/map${i}.json`, (data) => {
       let map = data;
 

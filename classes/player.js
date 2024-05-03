@@ -1,6 +1,8 @@
 import Point from "./point.js";
 import Skin from "./skin.js";
+import Powerup from "./powerup.js";
 import { map } from "../main.js";
+import Bomb from "./bomb.js";
 
 export default class Player {
   constructor(id, x, y, size) {
@@ -28,58 +30,106 @@ export default class Player {
     const currentSkin = this.skin.activeSkin;
     const currentImage = currentSkin[this.direction]; // Assuming direction property exists
     image(loadImage(currentImage), this.x, this.y, this.size, this.size);
+    this.updatePickup();
+  }
+
+  placeBomb() {
+    const x = this.position.getGridPosition().x;
+    const y = this.position.getGridPosition().y;
+    map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, 0);
   }
 
   moveUp() {
+    this.direction = "up";
+
     if (this.checkCollision(0, -1) === true) {
+      this.position.x = this.position.getGridPosition().x * this.size;
+      this.position.pixelX =
+        this.position.getGridPosition().x * this.size + map.marginLeft;
       this.position.pixelY -= 1;
       this.position.y -= 1;
-      this.direction = "up";
     }
   }
+
   moveDown() {
+    this.direction = "down";
     if (this.checkCollision(0, 1) === true) {
-      this.position.pixelY += 1;
-      this.position.y += 1;
-      this.direction = "down";
+      this.position.x = this.position.getGridPosition().x * this.size;
+      this.position.pixelX =
+        this.position.getGridPosition().x * this.size + map.marginLeft;
+      if (this.powerups.some((obj) => obj.type === "speed")) {
+        this.position.pixelY += 2;
+        this.position.y += 2;
+      } else {
+        this.position.pixelY += 1;
+        this.position.y += 1;
+      }
     }
   }
+
   moveLeft() {
+    this.direction = "left";
+
     if (this.checkCollision(-1, 0) === true) {
+      this.position.y = this.position.getGridPosition().y * this.size;
+      this.position.pixelY =
+        this.position.getGridPosition().y * this.size + map.marginTop;
       this.position.pixelX -= 1;
       this.position.x -= 1;
-      this.direction = "left";
     }
   }
+
   moveRight() {
+    this.direction = "right";
+
     if (this.checkCollision(1, 0) === true) {
+      this.position.y = this.position.getGridPosition().y * this.size;
+      this.position.pixelY =
+        this.position.getGridPosition().y * this.size + map.marginTop;
       this.position.pixelX += 1;
       this.position.x += 1;
-      this.direction = "right";
     }
   }
+
   checkCollision(directionX, directionY) {
-    let playerGridPosition = this.position.getGridPosition();
-    let checkBox = // If the box youre moving towards.
+    let playerGridPosition = this.position.getGridPosition(); // return grid position in grid block x and y
+
+    let nextGrid = // Is the box youre moving towards.
       map.grid[playerGridPosition.x + directionX][
         playerGridPosition.y + directionY
       ];
+
     let playerPosition = {
       x: this.position.x / this.size,
       y: this.position.y / this.size,
     };
 
     if (
-      checkBox === undefined ||
+      nextGrid === undefined ||
+      nextGrid instanceof Powerup ||
       (playerPosition.x > playerGridPosition.x && this.direction === "left") ||
-      (playerPosition.x < playerGridPosition.x + 1 &&
-        this.direction === "right")
+      (playerPosition.x < playerGridPosition.x && this.direction === "right") ||
+      (playerPosition.y > playerGridPosition.y && this.direction === "up") ||
+      (playerPosition.y < playerGridPosition.y && this.direction === "down")
     ) {
       return true;
     } else {
-      console.log(checkBox);
+      return false;
+    }
+  }
+
+  updatePickup() {
+    this.powerups.forEach((powerup, index) => {
+      powerup.duration--;
+      if (powerup.duration === 0) {
+        this.powerups.splice(index, 1);
+      }
+    });
+
+    let playerGridPosition = this.position.getGridPosition();
+    let powerup = map.grid[playerGridPosition.x]?.[playerGridPosition.y];
+    if (powerup instanceof Powerup) {
+      this.powerups.push(powerup.pickup());
     }
   }
 }
-
-// fix pixel position
