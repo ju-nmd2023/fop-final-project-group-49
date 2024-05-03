@@ -2,6 +2,7 @@ import Point from "./point.js";
 import Skin from "./skin.js";
 import Powerup from "./powerup.js";
 import { map } from "../main.js";
+import Bomb from "./bomb.js";
 
 export default class Player {
   constructor(id, x, y, size) {
@@ -26,50 +27,64 @@ export default class Player {
     pop();
   }
 
+  placeBomb() {
+    const x = this.position.getGridPosition().x;
+    const y = this.position.getGridPosition().y;
+    map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, 0);
+  }
+
   moveUp() {
+    this.direction = "up";
+
     if (this.checkCollision(0, -1) === true) {
       this.position.x = this.position.getGridPosition().x * this.size;
       this.position.pixelX =
         this.position.getGridPosition().x * this.size + map.marginLeft;
       this.position.pixelY -= 1;
       this.position.y -= 1;
-      this.direction = "up";
     }
     this.checkPickup();
   }
 
   moveDown() {
+    this.direction = "down";
     if (this.checkCollision(0, 1) === true) {
       this.position.x = this.position.getGridPosition().x * this.size;
       this.position.pixelX =
         this.position.getGridPosition().x * this.size + map.marginLeft;
-      this.position.pixelY += 1;
-      this.position.y += 1;
-      this.direction = "down";
+      if ("speed" in this.powerups) {
+        this.position.pixelY += 2;
+        this.position.y += 2;
+      } else {
+        this.position.pixelY += 1;
+        this.position.y += 1;
+      }
     }
     this.checkPickup();
   }
 
   moveLeft() {
+    this.direction = "left";
+
     if (this.checkCollision(-1, 0) === true) {
       this.position.y = this.position.getGridPosition().y * this.size;
       this.position.pixelY =
         this.position.getGridPosition().y * this.size + map.marginTop;
       this.position.pixelX -= 1;
       this.position.x -= 1;
-      this.direction = "left";
     }
     this.checkPickup();
   }
 
   moveRight() {
+    this.direction = "right";
+
     if (this.checkCollision(1, 0) === true) {
       this.position.y = this.position.getGridPosition().y * this.size;
       this.position.pixelY =
         this.position.getGridPosition().y * this.size + map.marginTop;
       this.position.pixelX += 1;
       this.position.x += 1;
-      this.direction = "right";
     }
     this.checkPickup();
   }
@@ -104,7 +119,7 @@ export default class Player {
   checkPickup() {
     let playerGridPosition = this.position.getGridPosition();
     let powerup = map.grid[playerGridPosition.x][playerGridPosition.y];
-    if (powerup !== undefined) {
+    if (powerup instanceof Powerup) {
       this.powerups.push(powerup.pickup());
     }
   }

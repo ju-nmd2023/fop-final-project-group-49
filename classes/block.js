@@ -22,12 +22,16 @@ export default class Block {
   destroy() {
     if (!this.indestructible) {
       let gridPosition = this.position.getGridPosition();
-      map.grid[gridPosition.x][gridPosition.y] = new Powerup(
-        this.position.x,
-        this.position.y,
-        this.size,
-        this.powerup,
-      );
+      if (this.powerup != undefined) {
+        map.grid[gridPosition.x][gridPosition.y] = new Powerup(
+          this.position.x,
+          this.position.y,
+          this.size,
+          this.powerup,
+        );
+      } else {
+        map.grid[gridPosition.x][gridPosition.y] = undefined;
+      }
     }
   }
 }

@@ -1,9 +1,7 @@
 import Player from "./classes/player.js";
 import Map from "./classes/map.js";
-import Block from "./classes/block.js";
 import StartScreen from "./classes/start-screen.js";
 import SkinsScreen from "./classes/skins-screen.js";
-import Powerup from "./classes/powerup.js";
 
 // Create a new player and map
 // The player (x, y, size)
@@ -48,12 +46,13 @@ function draw() {
     player.moveRight();
   }
   //skinsScreen.draw();
+  if (keyIsDown(BACKSPACE)) {
+    player.placeBomb();
+  }
 }
 
 function mouseClicked(event) {
   console.log(event);
-  map.grid[4][2] = new Powerup(4 * size, 2 * size, size, "bomb");
-  console.log(map.grid);
 
   //skinsScreen.mouseClicked(event);
 }
