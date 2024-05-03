@@ -1,4 +1,4 @@
-import { font, img } from "../main.js";
+import { font, img, gameState, GAME_SCREEN, player } from "../main.js";
 import Player from "./player.js";
 import Skin from "./skin.js";
 
@@ -10,22 +10,20 @@ export default class SkinsScreen {
   }
 
   chooseSkinButton(x, y) {
-    push();
     fill(209, 147, 31);
-    rect(x, y, 400, 100, 20);
+    rect(400, 900, 200, 100, 20);
     fill(20, 20, 20);
     textSize(30);
     textAlign(CENTER);
     textFont(font);
-    text("Choose skin", 550, 850);
-    pop();
+    text("Play", 520, 900);
   }
 
   mouseClicked() {
     for (let i = 0; i < 3; i++) {
       if (this.isPointWithinBox(mouseX, mouseY, i * 320, 100, 300, 400)) {
         console.log("Skin", i, "was pressed");
-        this.activeSkinIndex = i;
+        player.setActiveSkin(i); // Help 03-05-2024
         break; // Exit after finding the clicked skin
       } else if (
         this.isPointWithinBox(mouseX, mouseY, i * 320, 450, 300, 400)
@@ -35,6 +33,9 @@ export default class SkinsScreen {
         this.activeSkinIndex = i + 3; // Adjust activeSkinIndex for lower row
         break;
       }
+    }
+    if (mouseX > 500 && mouseX < 600 && mouseY > 800 && mouseY < 950) {
+      return true;
     }
   }
 
@@ -77,6 +78,6 @@ export default class SkinsScreen {
       // Draw bottom row again with highlight (if applicable)
       rect(i * 320, yPosition + 350, 300, 400, 20); // Adjust y position for lower row
     }
-    // ... rest of your code (chooseSkinButton, image, etc.)
+    this.chooseSkinButton();
   }
 }

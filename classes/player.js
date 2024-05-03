@@ -8,6 +8,7 @@ export default class Player {
     this.position = new Point(x, y, size);
     this.size = size;
     this.direction = 0;
+    this.activeSkin = 0;
     this.skin = new Skin(); // Line from gemini 18-04-2024
     this.direction = "down"; // The direction the player is facing, to animate the player
     this.powerups = []; // The active powerups
@@ -23,6 +24,10 @@ export default class Player {
     fill(255, 255, 0);
     rect(this.position.pixelX, this.position.pixelY, this.size);
     pop();
+
+    const currentSkin = this.skin.activeSkin;
+    const currentImage = currentSkin[this.direction]; // Assuming direction property exists
+    image(loadImage(currentImage), this.x, this.y, this.size, this.size);
   }
 
   moveUp() {
