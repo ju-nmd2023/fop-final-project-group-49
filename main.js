@@ -2,6 +2,7 @@ import Player from "./classes/player.js";
 import Map from "./classes/map.js";
 import StartScreen from "./classes/start-screen.js";
 import SkinsScreen from "./classes/skins-screen.js";
+import Result from "./classes/result-screen.js";
 
 // Create a new player and map
 // The player (x, y, size)
@@ -10,8 +11,16 @@ import SkinsScreen from "./classes/skins-screen.js";
 let gamestate = 0; // 0 = menu, 1 = skinscreen, 2 = game, 3 = game over
 let size = 60;
 
-// let startScreen = new StartScreen(0, 0, 500, 600);
+export let START_SCREEN = 1; // Naming variables from gemini 29-04-2024
+export let SKINS_SCREEN = 2;
+export let GAME_SCREEN = 3;
+export let RESULT_SCREEN = 4;
+
+export let gameState = 1;
+
+let startScreen = new StartScreen(0, 0, 500, 600);
 let skinsScreen = new SkinsScreen(0, 0, 500, 500);
+let resultScreen = new Result(0, 0, 500, 600);
 
 export let map = new Map(900, 780, size);
 export let player = new Player(0, 120, 120, size);
@@ -34,8 +43,17 @@ async function setup() {
 
 function draw() {
   clear();
-  map.draw();
-  player.draw();
+  if (gameState === START_SCREEN) {
+    startScreen.draw(); // Function to draw the start screen
+  } else if (gameState === SKINS_SCREEN) {
+    skinsScreen.draw(); // Function to draw the skins screen
+  } else if (gameState === GAME_SCREEN) {
+    map.draw(); // Function to draw the game screen
+    player.draw();
+  } else if (gameState === RESULT_SCREEN) {
+    resultScreen.draw(); // Function to draw the result screen
+  }
+
   if (keyIsDown(UP_ARROW)) {
     player.moveUp();
   } else if (keyIsDown(DOWN_ARROW)) {
@@ -45,6 +63,9 @@ function draw() {
   } else if (keyIsDown(RIGHT_ARROW)) {
     player.moveRight();
   }
+
+  // if (this.chooseSkinButton(mouseX, mouseY, 400, 900))
+  //   player.skin.activeskin = 2;
   //skinsScreen.draw();
   if (keyIsDown(BACKSPACE)) {
     player.placeBomb();
@@ -53,8 +74,15 @@ function draw() {
 
 function mouseClicked(event) {
   console.log(event);
-
-  //skinsScreen.mouseClicked(event);
+  if (gameState === START_SCREEN) {
+    let clicked = startScreen.mouseClicked(event);
+    clicked === true ? (gameState = SKINS_SCREEN) : null;
+  } else if (gameState === SKINS_SCREEN) {
+    let clicked = skinsScreen.mouseClicked(event);
+    clicked === true ? (gameState = GAME_SCREEN) : null;
+  } else if (gameState === RESULT_SCREEN) {
+    resultScreen.mouseClicked(event);
+  }
 }
 
 window.preload = preload;

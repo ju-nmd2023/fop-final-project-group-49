@@ -1,4 +1,4 @@
-import { font } from "../main.js";
+import { font, gameState, SKINS_SCREEN } from "../main.js";
 
 export default class StartScreen {
   constructor(x, y, width, height) {
@@ -17,6 +17,22 @@ export default class StartScreen {
     textFont(font);
     text("start", x, 400, 500, h);
     pop();
+  }
+
+  mouseClicked() {
+    const buttonX = this.width / 2; // Center the button horizontally
+    const buttonY = this.height / 2; // Center the button vertically
+    const buttonWidth = 250;
+    const buttonHeight = 80;
+
+    if (
+      mouseX > buttonX &&
+      mouseX < buttonX + buttonWidth &&
+      mouseY > buttonY &&
+      mouseY < buttonY + buttonHeight
+    ) {
+      return true;
+    }
   }
 
   draw() {
