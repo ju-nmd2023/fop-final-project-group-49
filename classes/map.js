@@ -25,9 +25,7 @@ export default class Map {
     // Loops through the grid and draws the blocks
     this.grid.forEach((xRow) => {
       xRow.forEach((yRow) => {
-        if (yRow instanceof Bomb) {
-          yRow.explode();
-        } else if (yRow != undefined) {
+        if (yRow != undefined) {
           yRow.draw();
         }
       });
