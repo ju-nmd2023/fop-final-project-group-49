@@ -25,6 +25,7 @@ export default class Player {
     fill(255, 255, 0);
     rect(this.position.pixelX, this.position.pixelY, this.size);
     pop();
+    this.updatePickup();
   }
 
   placeBomb() {
@@ -40,22 +41,8 @@ export default class Player {
       this.position.x = this.position.getGridPosition().x * this.size;
       this.position.pixelX =
         this.position.getGridPosition().x * this.size + map.marginLeft;
-      if (
-        this.powerups.some((obj) => obj.type === "speed") &&
-        this.powerups.some((obj) => obj.type === "slow")
-      ) {
-        this.position.pixelY -= 1;
-        this.position.y -= 1;
-      } else if (this.powerups.some((obj) => obj.type === "speed")) {
-        this.position.pixelY -= 2;
-        this.position.y -= 2;
-      } else if (this.powerups.some((obj) => obj.type === "slow")) {
-        this.position.pixelY -= 0.5;
-        this.position.y -= 0.5;
-      } else {
-        this.position.pixelY -= 1;
-        this.position.y -= 1;
-      }
+      this.position.pixelY -= 1;
+      this.position.y -= 1;
     }
     this.checkPickup();
   }
@@ -83,7 +70,6 @@ export default class Player {
         this.position.y += 1;
       }
     }
-    this.checkPickup();
   }
 
   moveLeft() {
@@ -93,22 +79,8 @@ export default class Player {
       this.position.y = this.position.getGridPosition().y * this.size;
       this.position.pixelY =
         this.position.getGridPosition().y * this.size + map.marginTop;
-      if (
-        this.powerups.some((obj) => obj.type === "speed") &&
-        this.powerups.some((obj) => obj.type === "slow")
-      ) {
-        this.position.pixelX -= 1;
-        this.position.x -= 1;
-      } else if (this.powerups.some((obj) => obj.type === "speed")) {
-        this.position.pixelX -= 2;
-        this.position.x -= 2;
-      } else if (this.powerups.some((obj) => obj.type === "slow")) {
-        this.position.pixelX -= 0.5;
-        this.position.x -= 0.5;
-      } else {
-        this.position.pixelX -= 1;
-        this.position.x -= 1;
-      }
+      this.position.pixelX -= 1;
+      this.position.x -= 1;
     }
     this.checkPickup();
   }
@@ -120,24 +92,9 @@ export default class Player {
       this.position.y = this.position.getGridPosition().y * this.size;
       this.position.pixelY =
         this.position.getGridPosition().y * this.size + map.marginTop;
-      if (
-        this.powerups.some((obj) => obj.type === "speed") &&
-        this.powerups.some((obj) => obj.type === "slow")
-      ) {
-        this.position.pixelX += 1;
-        this.position.x += 1;
-      } else if (this.powerups.some((obj) => obj.type === "speed")) {
-        this.position.pixelX += 2;
-        this.position.x += 2;
-      } else if (this.powerups.some((obj) => obj.type === "slow")) {
-        this.position.pixelX += 0.5;
-        this.position.x += 0.5;
-      } else {
-        this.position.pixelX += 1;
-        this.position.x += 1;
-      }
+      this.position.pixelX += 1;
+      this.position.x += 1;
     }
-    this.checkPickup();
   }
 
   checkCollision(directionX, directionY) {
@@ -167,9 +124,16 @@ export default class Player {
     }
   }
 
-  checkPickup() {
+  updatePickup() {
+    this.powerups.forEach((powerup, index) => {
+      powerup.duration--;
+      if (powerup.duration === 0) {
+        this.powerups.splice(index, 1);
+      }
+    });
+
     let playerGridPosition = this.position.getGridPosition();
-    let powerup = map.grid[playerGridPosition.x][playerGridPosition.y];
+    let powerup = map.grid[playerGridPosition.x]?.[playerGridPosition.y];
     if (powerup instanceof Powerup) {
       this.powerups.push(powerup.pickup());
     }
