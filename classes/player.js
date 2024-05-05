@@ -36,7 +36,7 @@ export default class Player {
   placeBomb() {
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
-    map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, 0);
+    map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size);
   }
 
   moveUp() {
