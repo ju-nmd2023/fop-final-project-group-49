@@ -17,9 +17,13 @@ export default class Player {
     this.lives = 1; // The amount of lives the player has default always one, can be increased
   }
 
-  chooseSkin(skinIndex) {
-    this.skin.setActiveSkin(skinIndex);
-  } // Also from gemini
+  setActiveSkin(skinIndex) {
+    if (skinIndex >= 0 && skinIndex < 6) {
+      this.activeSkin = skinIndex;
+    } else {
+      console.error("Invalid skin index:", skinIndex);
+    }
+  }
 
   draw() {
     push();

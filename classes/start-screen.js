@@ -22,8 +22,8 @@ export default class StartScreen {
   mouseClicked() {
     const buttonX = this.width / 2; // Center the button horizontally
     const buttonY = this.height / 2; // Center the button vertically
-    const buttonWidth = 250;
-    const buttonHeight = 80;
+    const buttonWidth = 500;
+    const buttonHeight = 200;
 
     if (
       mouseX > buttonX &&

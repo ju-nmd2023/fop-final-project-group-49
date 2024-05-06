@@ -9,32 +9,34 @@ export default class SkinsScreen {
     this.activeSkinIndex = null;
   }
 
-  chooseSkinButton(x, y) {
+  chooseSkinButton(x, y, width, height) {
     fill(209, 147, 31);
-    rect(400, 900, 200, 100, 20);
+    rect(x, y, width, height, 20); // Adjusted width based on calculation 200 100
     fill(20, 20, 20);
     textSize(30);
-    textAlign(CENTER);
+    textAlign(CENTER, CENTER); // Center both horizontally and vertically
     textFont(font);
-    text("Play", 520, 900);
+    text("Play", x + 100, y + 50); // Centered text
   }
 
   mouseClicked() {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 6; i++) {
+      // Check for all 6 boxes (0 to 5)
       if (this.isPointWithinBox(mouseX, mouseY, i * 320, 100, 300, 400)) {
         console.log("Skin", i, "was pressed");
-        player.setActiveSkin(i); // Help 03-05-2024
-        break; // Exit after finding the clicked skin
+        this.activeSkinIndex = i;
       } else if (
         this.isPointWithinBox(mouseX, mouseY, i * 320, 450, 300, 400)
       ) {
         // Check for lower boxes
         console.log("Skin", i + 3, "was pressed"); // Adjust index for lower row
         this.activeSkinIndex = i + 3; // Adjust activeSkinIndex for lower row
-        break;
       }
+      console.log(this.activeSkinIndex);
     }
-    if (mouseX > 500 && mouseX < 600 && mouseY > 800 && mouseY < 950) {
+
+    // "Play" button
+    if (mouseX > 300 && mouseX < 550 && mouseY > 800 && mouseY < 950) {
       return true;
     }
   }
@@ -55,19 +57,21 @@ export default class SkinsScreen {
 
       // Draw top row (base color first)
       fill(209, 147, 31); // Base color
-      rect(i * 320, yPosition, 300, 400, 20);
+      rect(i * 350, yPosition, 300, 300, 20);
 
       // Highlight logic (top row)
       if (this.activeSkinIndex === i) {
         fill(244, 217, 17); // Example highlight color
+      } else {
+        fill(209, 147, 31); // Base color
       }
 
       // Draw top row again with highlight (if applicable)
-      rect(i * 320, yPosition, 300, 400, 20);
+      rect(i * 350, yPosition, 300, 300, 20);
 
       // Draw bottom row (base color first for lower row)
       fill(209, 147, 31); // Base color
-      rect(i * 320, yPosition + 350, 300, 400, 20); // Adjust y position for lower row
+      rect(i * 350, yPosition + 350, 300, 300, 20); // Adjust y position for lower row
 
       // Highlight logic (bottom row)
       if (this.activeSkinIndex === i + 3) {
@@ -76,8 +80,8 @@ export default class SkinsScreen {
       }
 
       // Draw bottom row again with highlight (if applicable)
-      rect(i * 320, yPosition + 350, 300, 400, 20); // Adjust y position for lower row
+      rect(i * 350, yPosition + 350, 300, 300, 20); // Adjust y position for lower row
     }
-    this.chooseSkinButton();
+    this.chooseSkinButton(400, 860, 200, 100);
   }
 }
