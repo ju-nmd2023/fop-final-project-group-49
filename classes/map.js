@@ -1,5 +1,4 @@
 import Block from "./block.js";
-import Bomb from "./bomb.js";
 
 export default class Map {
   constructor(width, height, gridSize) {
@@ -47,7 +46,7 @@ export default class Map {
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              true
+              true,
             );
           } else if (map[xIndex][yIndex] === 2) {
             // If the block is clear spawn point
@@ -58,7 +57,7 @@ export default class Map {
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              false
+              false,
             );
           }
         }

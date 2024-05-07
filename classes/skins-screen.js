@@ -1,6 +1,4 @@
-import { font, img, gameState, GAME_SCREEN, player } from "../main.js";
-import Player from "./player.js";
-import Skin from "./skin.js";
+import { font, img } from "../main.js";
 
 export default class SkinsScreen {
   constructor(x, y, width, height) {

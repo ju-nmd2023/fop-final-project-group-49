@@ -8,22 +8,23 @@ import Result from "./classes/result-screen.js";
 // The player (x, y, size)
 // The map (width, height, gridSize)
 // size is the size of the player and the grid
-let gamestate = 0; // 0 = menu, 1 = skinscreen, 2 = game, 3 = game over
 let size = 60;
 
-export let START_SCREEN = 1; // Naming variables from gemini 29-04-2024
-export let SKINS_SCREEN = 2;
-export let GAME_SCREEN = 3;
-export let RESULT_SCREEN = 4;
+let START_SCREEN = 1; // Naming variables from gemini 29-04-2024
+let SKINS_SCREEN = 2;
+let GAME_SCREEN = 3;
+let RESULT_SCREEN = 4;
 
-export let gameState = 1;
+let gameState = 1;
 
 let startScreen = new StartScreen(0, 0, 500, 600);
 let skinsScreen = new SkinsScreen(0, 0, 500, 500);
 let resultScreen = new Result(0, 0, 500, 600);
 
 export let map = new Map(900, 780, size);
-export let player = new Player(0, 120, 120, size);
+let player1 = new Player(0, 120, 120, size);
+let player2 = new Player(1, 240, 240, size);
+export let playerList = [player1, player2];
 
 export let font;
 export let img;
@@ -49,26 +50,26 @@ function draw() {
     skinsScreen.draw(); // Function to draw the skins screen
   } else if (gameState === GAME_SCREEN) {
     map.draw(); // Function to draw the game screen
-    player.draw();
+    playerList.forEach((player) => player.draw());
   } else if (gameState === RESULT_SCREEN) {
     resultScreen.draw(); // Function to draw the result screen
   }
 
   if (keyIsDown(UP_ARROW)) {
-    player.moveUp();
+    player1.moveUp();
   } else if (keyIsDown(DOWN_ARROW)) {
-    player.moveDown();
+    player1.moveDown();
   } else if (keyIsDown(LEFT_ARROW)) {
-    player.moveLeft();
+    player1.moveLeft();
   } else if (keyIsDown(RIGHT_ARROW)) {
-    player.moveRight();
+    player1.moveRight();
   }
 
   // if (this.chooseSkinButton(mouseX, mouseY, 400, 900))
   //   player.skin.activeskin = 2;
   //skinsScreen.draw();
   if (keyIsDown(BACKSPACE)) {
-    player.placeBomb();
+    player1.placeBomb();
   }
 }
 

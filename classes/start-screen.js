@@ -1,4 +1,4 @@
-import { font, gameState, SKINS_SCREEN } from "../main.js";
+import { font } from "../main.js";
 
 export default class StartScreen {
   constructor(x, y, width, height) {
