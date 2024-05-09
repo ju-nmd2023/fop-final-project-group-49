@@ -27,15 +27,28 @@ export let player = new Player(0, 120, 120, size);
 
 export let font;
 export let img;
+export let images;
+
 function preload() {
   font = loadFont("assets/AGENTORANGE.TTF");
   img = loadImage("assets/BabelGameByggnader.png");
+  images = {
+    indestructible: [
+      loadImage("assets/blueHouse.png"),
+      loadImage("assets/pinkHouse.png"),
+    ],
+    destructible: [
+      loadImage("assets/Bulle.png"),
+      loadImage("assets/tree.png"),
+      loadImage("assets/Lamp.png"),
+    ],
+  };
 }
 
 async function setup() {
   frameRate(60);
   createCanvas(1000, 1000);
-  background(0);
+  background(150, 150, 150);
   await map.generate(1);
 
   console.log(map.grid);

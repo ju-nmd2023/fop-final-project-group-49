@@ -32,8 +32,8 @@ export default class Player {
     pop();
 
     const currentSkin = this.skin.activeSkin;
-    const currentImage = currentSkin[this.direction]; // Assuming direction property exists
-    image(loadImage(currentImage), this.x, this.y, this.size, this.size);
+    // const currentImage = currentSkin[this.direction]; // Assuming direction property exists
+    // image(loadImage(currentImage), this.x, this.y, this.size, this.size);
     this.updatePickup();
   }
 
