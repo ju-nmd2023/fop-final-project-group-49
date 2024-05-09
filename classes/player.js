@@ -40,7 +40,7 @@ export default class Player {
   placeBomb() {
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
-    map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size);
+    map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, true);
   }
 
   moveUp() {
@@ -62,9 +62,11 @@ export default class Player {
       } else if (this.powerups.some((obj) => obj.type === "slow")) {
         this.position.pixelY -= 0.5;
         this.position.y -= 0.5;
+      } else {
+        this.position.pixelY -= 1;
+        this.position.y -= 1;
       }
     }
-    this.checkPickup();
   }
 
   moveDown() {
@@ -116,7 +118,6 @@ export default class Player {
         this.position.x -= 1;
       }
     }
-    this.checkPickup();
   }
 
   moveRight() {

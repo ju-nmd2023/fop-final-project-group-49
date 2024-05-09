@@ -1,5 +1,3 @@
-import { gameState, GAME_SCREEN, SKINS_SCREEN } from "../main.js";
-
 export default class Result {
   displayResult(x, y) {
     textSize(30);
