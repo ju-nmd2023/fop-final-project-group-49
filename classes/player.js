@@ -1,8 +1,11 @@
 import Point from "./point.js";
 import Skin from "./skin.js";
 import Powerup from "./powerup.js";
-import { map } from "../main.js";
+import { map, speedPwrImage } from "../main.js";
 import Bomb from "./bomb.js";
+
+// ChosenSkinIndex represents the players skin through entire game
+// setChosenSkin provides a controlled way to update the chosen skin
 
 export default class Player {
   constructor(id, x, y, size) {
@@ -11,18 +14,10 @@ export default class Player {
     this.size = size;
     this.direction = 0;
     this.activeSkin = 0;
-    this.skin = new Skin(); // Line from gemini 18-04-2024
+    this.skin = []; // Line from gemini 09-05-2024
     this.direction = "down"; // The direction the player is facing, to animate the player
     this.powerups = []; // The active powerups
     this.lives = 1; // The amount of lives the player has default always one, can be increased
-  }
-
-  setActiveSkin(skinIndex) {
-    if (skinIndex >= 0 && skinIndex < 6) {
-      this.activeSkin = skinIndex;
-    } else {
-      console.error("Invalid skin index:", skinIndex);
-    }
   }
 
   draw() {
@@ -31,9 +26,6 @@ export default class Player {
     rect(this.position.pixelX, this.position.pixelY, this.size);
     pop();
 
-    const currentSkin = this.skin.activeSkin;
-    const currentImage = currentSkin[this.direction]; // Assuming direction property exists
-    image(loadImage(currentImage), this.x, this.y, this.size, this.size);
     this.updatePickup();
   }
 

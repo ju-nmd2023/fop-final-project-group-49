@@ -1,5 +1,5 @@
 import Point from "./point.js";
-import { map } from "../main.js";
+import { map, playerList } from "../main.js";
 import Block from "./block.js";
 
 export default class Bomb {
@@ -82,13 +82,19 @@ export default class Bomb {
         };
       }
 
+      playerList.forEach((player) => {
+        if (player.position.getGridPosition === newPosition) {
+          player.die();
+        }
+      });
+
       if (map.grid[newPosition.x][newPosition.y] instanceof Block) {
         // Checks if the bomb explosion position is a block
         if (middlePosition) {
           if (map.grid[middlePosition.x][middlePosition.y]?.indestructible) {
             // Checks if the bomb explosion has a block in the middleposition, then dont explode beyond it
             console.log(
-              map.grid[middlePosition.x][middlePosition.y]?.indestructible
+              map.grid[middlePosition.x][middlePosition.y]?.indestructible,
             );
             console.log("indestructible");
           } else {
