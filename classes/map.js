@@ -1,4 +1,6 @@
 import Block from "./block.js";
+import Bomb from "./bomb.js";
+import { images } from "../main.js";
 
 export default class Map {
   constructor(width, height, gridSize) {
@@ -9,15 +11,22 @@ export default class Map {
     this.marginTop = (1000 - height) / 2; // The top margin of the map. To center the map when drawn
     this.grid = [];
     this.powerupTypes = ["bomb", "slow", "speed", "life"];
+    this.block;
   }
 
+  // map.grid[x][y].indestructible => true
+
   draw() {
+    background(173, 100, 36);
     for (let x = 0; x < this.width; x += this.gridSize) {
       // Draw the empty grid outlines
       for (let y = 0; y < this.height; y += this.gridSize) {
-        stroke(255);
-        noFill();
-        rect(this.marginLeft + x, this.marginTop + y, this.gridSize);
+        stroke(46, 46, 46);
+        fill(200, 200, 200).rect(
+          this.marginLeft + x,
+          this.marginTop + y,
+          this.gridSize
+        );
       }
     }
 
@@ -46,7 +55,7 @@ export default class Map {
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              true,
+              true
             );
           } else if (map[xIndex][yIndex] === 2) {
             // If the block is clear spawn point
@@ -57,7 +66,7 @@ export default class Map {
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              false,
+              false
             );
           }
         }

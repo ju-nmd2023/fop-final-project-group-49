@@ -28,15 +28,30 @@ export let playerList = [player1, player2];
 
 export let font;
 export let img;
+export let images;
+export let speedPwrImage;
+
 function preload() {
   font = loadFont("assets/AGENTORANGE.TTF");
   img = loadImage("assets/BabelGameByggnader.png");
+  speedPwrImage = loadImage("");
+  images = {
+    indestructible: [
+      loadImage("assets/blueHouse.png"),
+      loadImage("assets/pinkHouse.png"),
+    ],
+    destructible: [
+      loadImage("assets/Bulle.png"),
+      loadImage("assets/tree.png"),
+      loadImage("assets/Lamp.png"),
+    ],
+  };
 }
 
 async function setup() {
   frameRate(60);
   createCanvas(1000, 1000);
-  background(0);
+  background(150, 150, 150);
   await map.generate(1);
 
   console.log(map.grid);
@@ -65,9 +80,6 @@ function draw() {
     player1.moveRight();
   }
 
-  // if (this.chooseSkinButton(mouseX, mouseY, 400, 900))
-  //   player.skin.activeskin = 2;
-  //skinsScreen.draw();
   if (keyIsDown(BACKSPACE)) {
     player1.placeBomb();
   }
