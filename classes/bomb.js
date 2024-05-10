@@ -83,7 +83,10 @@ export default class Bomb {
       }
 
       playerList.forEach((player) => {
-        if (player.position.getGridPosition === newPosition) {
+        if (
+          player.position.getGridPosition().x == newPosition.x &&
+          player.position.getGridPosition().y == newPosition.y
+        ) {
           player.die();
         }
       });
@@ -92,11 +95,6 @@ export default class Bomb {
         // Checks if the bomb explosion position is a block
         if (middlePosition) {
           if (map.grid[middlePosition.x][middlePosition.y]?.indestructible) {
-            // Checks if the bomb explosion has a block in the middleposition, then dont explode beyond it
-            console.log(
-              map.grid[middlePosition.x][middlePosition.y]?.indestructible,
-            );
-            console.log("indestructible");
           } else {
             map.grid[newPosition.x][newPosition.y].destroy(); // If its not indestructible, explode
           }
