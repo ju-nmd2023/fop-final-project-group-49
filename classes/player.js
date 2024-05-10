@@ -184,7 +184,11 @@ export default class Player {
     let playerGridPosition = this.position.getGridPosition();
     let powerup = map.grid[playerGridPosition.x]?.[playerGridPosition.y];
     if (powerup instanceof Powerup) {
-      this.powerups.push(powerup.pickup());
+      if (powerup.type === "life") {
+        this.lives += 1;
+      } else {
+        this.powerups.push(powerup.pickup());
+      }
     }
   }
 }
