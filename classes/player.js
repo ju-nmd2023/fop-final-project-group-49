@@ -31,9 +31,9 @@ export default class Player {
     rect(this.position.pixelX, this.position.pixelY, this.size);
     pop();
 
-    const currentSkin = this.skin.activeSkin;
-    const currentImage = currentSkin[this.direction]; // Assuming direction property exists
-    image(loadImage(currentImage), this.x, this.y, this.size, this.size);
+    //const currentSkin = this.skin.activeSkin;
+    //const currentImage = currentSkin[this.direction]; // Assuming direction property exists
+    //image(loadImage(currentImage), this.x, this.y, this.size, this.size);
     this.updatePickup();
   }
 
@@ -41,6 +41,13 @@ export default class Player {
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
     map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, true);
+  }
+
+  die() {
+    this.lives--;
+    if (this.lives === 0) {
+      console.log("DEAD");
+    }
   }
 
   moveUp() {
