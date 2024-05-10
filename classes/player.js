@@ -1,7 +1,7 @@
 import Point from "./point.js";
 import Skin from "./skin.js";
 import Powerup from "./powerup.js";
-import { map, speedPwrImage } from "../main.js";
+//import { map, speedPwrImage } from "../main.js";
 import Bomb from "./bomb.js";
 
 // ChosenSkinIndex represents the players skin through entire game

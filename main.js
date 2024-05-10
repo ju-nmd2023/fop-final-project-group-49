@@ -34,7 +34,7 @@ export let speedPwrImage;
 function preload() {
   font = loadFont("assets/AGENTORANGE.TTF");
   img = loadImage("assets/BabelGameByggnader.png");
-  speedPwrImage = loadImage("");
+  // speedPwrImage = loadImage("");
   images = {
     indestructible: [
       loadImage("assets/blueHouse.png"),
@@ -44,6 +44,14 @@ function preload() {
       loadImage("assets/Bulle.png"),
       loadImage("assets/tree.png"),
       loadImage("assets/Lamp.png"),
+    ],
+    screenSkins: [
+      loadImage("assets/skinscreenbabel/01:front.png"),
+      loadImage("assets/skinscreenbabel/02:front.png"),
+      loadImage("assets/skinscreenbabel/03 front.png"),
+      loadImage("assets/skinscreenbabel/04:front.png"),
+      loadImage("assets/skinscreenbabel/05:front.png"),
+      loadImage("assets/skinscreenbabel/06:front.png"),
     ],
   };
 }

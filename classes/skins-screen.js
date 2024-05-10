@@ -1,4 +1,4 @@
-import { font, img } from "../main.js";
+import { font, images, img } from "../main.js";
 
 export default class SkinsScreen {
   constructor(x, y, width, height) {
@@ -82,9 +82,9 @@ export default class SkinsScreen {
       const xPosition = (i % 3) * 350; // Adjust x position for the additional set of boxes
 
       rect(xPosition, yPosition, 300, 300, 20); // Draw additional box
-    }
 
-    // Iterate over players
+      image(images.screenSkins[i], xPosition + 10, yPosition - 50, 300, 400);
+    }
     for (let player = 0; player < 2; player++) {
       // Iterate over skin boxes
       for (let i = 0; i < 6; i++) {
@@ -96,9 +96,17 @@ export default class SkinsScreen {
         if (this.highlightedSkinIndex[player] === i) {
           fill(244, 217, 17); // Yellow color for highlighted skin
           rect(xPosition, yPosition, 300, 300, 20); // Draw highlighted box
+          image(
+            images.screenSkins[i],
+            xPosition + 10,
+            yPosition - 50,
+            300,
+            400
+          );
         }
       }
     }
+    // Iterate over players
 
     this.chooseSkinButton(400, 860, 200, 100); // Adjust button position
   }
