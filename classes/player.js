@@ -2,6 +2,7 @@ import Point from "./point.js";
 import Skin from "./skin.js";
 import Powerup from "./powerup.js";
 //import { map, speedPwrImage } from "../main.js";
+import { map, images, skins } from "../main.js";
 import Bomb from "./bomb.js";
 
 // ChosenSkinIndex represents the players skin through entire game
@@ -25,6 +26,14 @@ export default class Player {
     fill(255, 255, 0);
     rect(this.position.pixelX, this.position.pixelY, this.size);
     pop();
+
+    // image(
+    //   images.screenSkins[this.skinIndex],
+    //   this.position.pixelX,
+    //   this.position.pixelY,
+    //   this.size,
+    //   this.size
+    // );
 
     //const currentSkin = this.skin.activeSkin;
     //const currentImage = currentSkin[this.direction]; // Assuming direction property exists
@@ -124,6 +133,16 @@ export default class Player {
 
   moveRight() {
     this.direction = "right";
+
+    // if (this.activeSkin === 0) {
+    //   image(
+    //     skins.babel1[3],
+    //     this.position.pixelX,
+    //     this.position.pixelY,
+    //     this.size,
+    //     this.size
+    //   );
+    // }
 
     if (this.checkCollision(1, 0) === true) {
       this.position.y = this.position.getGridPosition().y * this.size;

@@ -94,7 +94,7 @@ export default class SkinsScreen {
 
         // Highlight logic
         if (this.highlightedSkinIndex[player] === i) {
-          fill(244, 217, 17); // Yellow color for highlighted skin
+          fill(255, 197, 4); // Yellow color for highlighted skin
           rect(xPosition, yPosition, 300, 300, 20); // Draw highlighted box
           image(
             images.screenSkins[i],
