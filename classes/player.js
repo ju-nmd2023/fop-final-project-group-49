@@ -1,7 +1,7 @@
 import Point from "./point.js";
 import Skin from "./skin.js";
 import Powerup from "./powerup.js";
-//import { map, speedPwrImage } from "../main.js";
+import { map, speedPwrImage } from "../main.js";
 import Bomb from "./bomb.js";
 
 // ChosenSkinIndex represents the players skin through entire game
@@ -26,9 +26,6 @@ export default class Player {
     rect(this.position.pixelX, this.position.pixelY, this.size);
     pop();
 
-    //const currentSkin = this.skin.activeSkin;
-    //const currentImage = currentSkin[this.direction]; // Assuming direction property exists
-    //image(loadImage(currentImage), this.x, this.y, this.size, this.size);
     this.updatePickup();
   }
 
@@ -36,13 +33,6 @@ export default class Player {
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
     map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, true);
-  }
-
-  die() {
-    this.lives--;
-    if (this.lives === 0) {
-      console.log("DEAD");
-    }
   }
 
   moveUp() {
@@ -186,11 +176,7 @@ export default class Player {
     let playerGridPosition = this.position.getGridPosition();
     let powerup = map.grid[playerGridPosition.x]?.[playerGridPosition.y];
     if (powerup instanceof Powerup) {
-      if (powerup.type === "life") {
-        this.lives += 1;
-      } else {
-        this.powerups.push(powerup.pickup());
-      }
+      this.powerups.push(powerup.pickup());
     }
   }
 }
