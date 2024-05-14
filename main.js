@@ -58,57 +58,57 @@ function preload() {
   skins = [
     [
       //Red babel
-      loadImage("assets/skinscreenbabel/01:front.png"), //front
-      loadImage("assets/babelDirections/01 left 01.png"), // first left
-      loadImage("assets/babelDirections/01:left:02.png"), // second left
-      loadImage("assets/babelDirections/01 right 01.png"), //first right
-      loadImage("assets/babelDirections/01 right 02.png"), //second right
-      loadImage("assets/babelDirections/01:back.png"), //back
+      loadImage("assets/babeldirections/01.front.png"), //front
+      loadImage("assets/babeldirections/01.left.01.png"), // first left
+      loadImage("assets/babeldirections/01.left.02.png"), // second left
+      loadImage("assets/babeldirections/01.right.01.png"), //first right
+      loadImage("assets/babeldirections/01.right.02.png"), //second right
+      loadImage("assets/babeldirections/01.back.png"), //back
     ],
     //green babel
     [
-      loadImage("assets/skinscreenbabel/02:front.png"), //front
-      loadImage("assets/babelDirections/02 left 01.png"), // first left
-      loadImage("assets/babelDirections/02 left 02.png"), // second left
-      loadImage("assets/babelDirections/02 right 01.png"), // first right
-      loadImage("assets/babelDirections/02:right:02.png"), // second right
-      loadImage("assets/babelDirections/02:back.png"), //back
+      loadImage("assets/babeldirections/02.front.png"), //front
+      loadImage("assets/babeldirections/02.left.01.png"), // first left
+      loadImage("assets/babeldirections/02.left.02.png"), // second left
+      loadImage("assets/babeldirections/02.right.01.png"), // first right
+      loadImage("assets/babeldirections/02.right.02.png"), // second right
+      loadImage("assets/babeldirections/02.back.png"), //back
     ],
     //pink babel
     [
-      loadImage("assets/skinscreenbabel/03 front.png"), //front
-      loadImage("assets/babelDirections/03:left:01.png"), // first left
-      loadImage("assets/babelDirections/03:left:02.png"), // second left
-      loadImage("assets/babelDirections/03 right 01.png"), // first right
-      loadImage("assets/babelDirections/03:right:02.png"), // second right
-      loadImage("assets/babelDirections/03:back.png"), //back
+      loadImage("assets/babeldirections/03.front.png"), //front
+      loadImage("assets/babeldirections/03.left.01.png"), // first left
+      loadImage("assets/babeldirections/03.left.02.png"), // second left
+      loadImage("assets/babeldirections/03.right.01.png"), // first right
+      loadImage("assets/babeldirections/03.right.02.png"), // second right
+      loadImage("assets/babeldirections/03.back.png"), //back
     ],
     //yellow babel
     [
-      loadImage("assets/skinscreenbabel/04:front.png"), //front
-      loadImage("assets/babelDirections/04:left:01.png"), // first left
-      loadImage("assets/babelDirections/04:left:02.png"), // second left
-      loadImage("assets/babelDirections/04:right:01.png"), // first right
-      loadImage("assets/babelDirections/04:right:02.png"), // second right
-      loadImage("assets/babelDirections/04:back.png"), //back
+      loadImage("assets/babeldirections/04.front.png"), //front
+      loadImage("assets/babeldirections/04.left.01.png"), // first left
+      loadImage("assets/babeldirections/04.left.02.png"), // second left
+      loadImage("assets/babeldirections/04.right.01.png"), // first right
+      loadImage("assets/babeldirections/04.right.02.png"), // second right
+      loadImage("assets/babeldirections/04.back.png"), //back
     ],
     //orange babel
     [
-      loadImage("assets/skinscreenbabel/05:front.png"), //front
-      loadImage("assets/babelDirections/05:left:01.png"), // first left
-      loadImage("assets/babelDirections/05:left:02.png"), // second left
-      loadImage("assets/babelDirections/05:right:01.png"), // first right
-      loadImage("assets/babelDirections/05:right:02.png"), // second right
-      loadImage("assets/babelDirections/05:back.png"), //back
+      loadImage("assets/babeldirections/05.front.png"), //front
+      loadImage("assets/babeldirections/05.left.01.png"), // first left
+      loadImage("assets/babeldirections/05.left.02.png"), // second left
+      loadImage("assets/babeldirections/05.right.01.png"), // first right
+      loadImage("assets/babeldirections/05.right.02.png"), // second right
+      loadImage("assets/babeldirections/05.back.png"), //back
     ],
     //blue babel
     [
-      loadImage("assets/skinscreenbabel/06:front.png"), //front
-      loadImage("assets/babelDirections/06:left:01.png"), // first left
-      loadImage("assets/babelDirections/06:left:02.png"), // second left
-      loadImage("assets/babelDirections/06:right:01.png"), // first right
-      loadImage("assets/babelDirections/06:right:02.png"), // second right
-      loadImage("assets/babelDirections/06:back.png"), //back
+      loadImage("assets/babeldirections/06.front.png"), //front
+      loadImage("assets/babeldirections/06.left.01.png"), // first left
+      loadImage("assets/babeldirections/06.left.02.png"), // second left
+      loadImage("assets/babeldirections/06.right.01.png"), // first right
+      loadImage("assets/babeldirections/06.right.02.png"), // second right
+      loadImage("assets/babeldirections/06.back.png"), //back
     ],
   ];
 }

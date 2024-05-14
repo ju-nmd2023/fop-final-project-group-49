@@ -15,25 +15,70 @@ export default class Player {
     this.size = size;
     this.direction = 0;
     this.activeSkin = 0;
-    this.skin = []; // Line from gemini 09-05-2024
+    this.skin = { animationFrame: 0, directionImage: true }; // Line from gemini 09-05-2024
     this.direction = "down"; // The direction the player is facing, to animate the player
     this.powerups = []; // The active powerups
     this.lives = 1; // The amount of lives the player has default always one, can be increased
   }
 
   draw() {
-    push();
-    fill(255, 255, 0);
-    rect(this.position.pixelX, this.position.pixelY, this.size);
-    pop();
+    console.log(skins[this.activeSkin]);
 
-    // image(
-    //   images.screenSkins[this.skinIndex],
-    //   this.position.pixelX,
-    //   this.position.pixelY,
-    //   this.size,
-    //   this.size
-    // );
+    let imageIndex = 0;
+    this.skin.animationFrame++;
+
+    if (this.direction === "down") {
+      imageIndex = 0;
+    } else if (this.direction === "up") {
+      imageIndex = 5;
+    } else if (this.direction === "left") {
+      console.log(this.skin.animationFrame);
+      if (
+        this.skin.animationFrame % 12 === 0 &&
+        this.skin.directionImage === true
+      ) {
+        this.skin.directionImage = false;
+        this.skin.animationFrame = 0;
+      } else if (this.skin.animationFrame % 12 === 0) {
+        this.skin.directionImage = true;
+        this.skin.animationFrame = 0;
+      }
+      if (this.skin.directionImage === true) {
+        imageIndex = 2;
+      } else {
+        imageIndex = 1;
+      }
+    }
+    if (this.direction === "right") {
+      if (
+        this.skin.animationFrame % 12 === 0 &&
+        this.skin.directionImage === true
+      ) {
+        this.skin.directionImage = false;
+        this.skin.animationFrame = 0;
+      } else if (this.skin.animationFrame % 12 === 0) {
+        this.skin.directionImage = true;
+        this.skin.animationFrame = 0;
+      }
+      if (this.skin.directionImage === true) {
+        imageIndex = 3;
+      } else {
+        imageIndex = 4;
+      }
+    }
+
+    // else if (this.direction === "right") {
+    //   imageIndex = this.position.pixelX % 7 === 0 ? 3 : 4;
+    // } else if (this.direction === "left") {
+    //   imageIndex = this.position.pixelX % 7 === 0 ? 1 : 2;
+    // }
+    image(
+      skins[this.activeSkin][imageIndex],
+      this.position.pixelX,
+      this.position.pixelY,
+      this.size,
+      this.size
+    );
 
     //const currentSkin = this.skin.activeSkin;
     //const currentImage = currentSkin[this.direction]; // Assuming direction property exists
