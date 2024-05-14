@@ -92,13 +92,6 @@ export default class Player {
     map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, true);
   }
 
-  die() {
-    this.lives--;
-    if (this.lives === 0) {
-      console.log("DEAD");
-    }
-  }
-
   moveUp() {
     this.direction = "up";
 
@@ -250,11 +243,7 @@ export default class Player {
     let playerGridPosition = this.position.getGridPosition();
     let powerup = map.grid[playerGridPosition.x]?.[playerGridPosition.y];
     if (powerup instanceof Powerup) {
-      if (powerup.type === "life") {
-        this.lives += 1;
-      } else {
-        this.powerups.push(powerup.pickup());
-      }
+      this.powerups.push(powerup.pickup());
     }
   }
 }

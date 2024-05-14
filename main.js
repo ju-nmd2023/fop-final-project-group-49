@@ -3,6 +3,7 @@ import Map from "./classes/map.js";
 import StartScreen from "./classes/start-screen.js";
 import SkinsScreen from "./classes/skins-screen.js";
 import Result from "./classes/result-screen.js";
+import Sidebar from "./classes/sidebar.js";
 
 // Create a new player and map
 // The player (x, y, size)
@@ -12,14 +13,15 @@ let size = 60;
 
 let START_SCREEN = 1; // Naming variables from gemini 29-04-2024
 let SKINS_SCREEN = 2;
-let GAME_SCREEN = 3;
+export let GAME_SCREEN = 3;
 let RESULT_SCREEN = 4;
 
-let gameState = 1;
+export let gameState = 1;
 
 let startScreen = new StartScreen(0, 0, 500, 600);
 let skinsScreen = new SkinsScreen(0, 0, 500, 500);
 let resultScreen = new Result(0, 0, 500, 600);
+let sidebar = new Sidebar(0, 0, 600, 90);
 
 export let map = new Map(900, 780, size);
 let player1 = new Player(0, 120, 120, size);
@@ -125,14 +127,19 @@ async function setup() {
 function draw() {
   clear();
   if (gameState === START_SCREEN) {
-    startScreen.draw(); // Function to draw the start screen
+    startScreen.draw();
   } else if (gameState === SKINS_SCREEN) {
-    skinsScreen.draw(); // Function to draw the skins screen
+    skinsScreen.draw();
   } else if (gameState === GAME_SCREEN) {
-    map.draw(); // Function to draw the game screen
+    map.draw();
     playerList.forEach((player) => player.draw());
+    sidebar.draw();
+    if (sidebar.startTime === null) {
+      // Start the timer only if it hasn't been started yet
+      sidebar.startTimer();
+    }
   } else if (gameState === RESULT_SCREEN) {
-    resultScreen.draw(); // Function to draw the result screen
+    resultScreen.draw();
   }
 
   if (keyIsDown(UP_ARROW)) {
@@ -158,6 +165,9 @@ function mouseClicked(event) {
   } else if (gameState === SKINS_SCREEN) {
     let clicked = skinsScreen.mouseClicked(event);
     clicked === true ? (gameState = GAME_SCREEN) : null;
+  } else if (gameState === GAME_SCREEN) {
+    sidebar.mouseClicked(event); // Call sidebar's click handler
+    console.log("Sidebar mouseClicked() function is called.");
   } else if (gameState === RESULT_SCREEN) {
     resultScreen.mouseClicked(event);
   }
