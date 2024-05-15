@@ -25,7 +25,7 @@ let sidebar = new Sidebar(0, 0, 600, 90);
 
 export let map = new Map(900, 780, size);
 let player1 = new Player(0, 120, 120, size);
-let player2 = new Player(1, 240, 240, size);
+let player2 = new Player(1, 720, 600, size);
 export let playerList = [player1, player2];
 
 export let font;
@@ -141,7 +141,7 @@ function draw() {
   } else if (gameState === RESULT_SCREEN) {
     resultScreen.draw();
   }
-
+  // player 1 movement
   if (keyIsDown(UP_ARROW)) {
     player1.moveUp();
   } else if (keyIsDown(DOWN_ARROW)) {
@@ -154,6 +154,19 @@ function draw() {
 
   if (keyIsDown(BACKSPACE)) {
     player1.placeBomb();
+  }
+  // player 2 movement
+  if (keyIsDown(87)) {
+    player2.moveUp();
+  } else if (keyIsDown(83)) {
+    player2.moveDown();
+  } else if (keyIsDown(65)) {
+    player2.moveLeft();
+  } else if (keyIsDown(68)) {
+    player2.moveRight();
+  }
+  if (keyIsDown(32)) {
+    player2.placeBomb();
   }
 }
 
