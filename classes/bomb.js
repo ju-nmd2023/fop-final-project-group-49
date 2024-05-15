@@ -32,6 +32,7 @@ export default class Bomb {
 
     let bombOffsets = [
       //This is changed if you have the bomb powerup
+      [0, 0],
       [0, 1], // Up
       [0, -1], // Down
       [-1, 0], // Left
@@ -39,6 +40,7 @@ export default class Bomb {
     ];
     if (this.powerBomb === true) {
       bombOffsets = [
+        [0, 0],
         [0, 2], // Up
         [0, -2], // Down
         [-2, 0], // Left

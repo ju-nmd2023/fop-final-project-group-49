@@ -84,9 +84,10 @@ export default class Player {
     let bombPlaced = false;
 
     map.grid.forEach((xRow) => {
-      // loops through grid map
+      // loops through grid map for bombs
       xRow.forEach((yRow) => {
         if (yRow instanceof Bomb) {
+          // checks if bomb has same id as player
           if (yRow.playerId === this.id) {
             bombPlaced = true;
           }
@@ -97,6 +98,7 @@ export default class Player {
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
     if (bombPlaced === false) {
+      // If no bomb is placed, you can place a bomb, else you cant
       map.grid[x][y] = new Bomb(
         x * this.size,
         y * this.size,
