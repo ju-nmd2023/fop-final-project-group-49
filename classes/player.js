@@ -66,12 +66,6 @@ export default class Player {
         imageIndex = 4;
       }
     }
-
-    // else if (this.direction === "right") {
-    //   imageIndex = this.position.pixelX % 7 === 0 ? 3 : 4;
-    // } else if (this.direction === "left") {
-    //   imageIndex = this.position.pixelX % 7 === 0 ? 1 : 2;
-    // }
     image(
       skins[this.activeSkin][imageIndex],
       this.position.pixelX,
@@ -87,9 +81,30 @@ export default class Player {
   }
 
   placeBomb() {
+    let bombPlaced = false;
+
+    map.grid.forEach((xRow) => {
+      // loops through grid map
+      xRow.forEach((yRow) => {
+        if (yRow instanceof Bomb) {
+          if (yRow.playerId === this.id) {
+            bombPlaced = true;
+          }
+        }
+      });
+    });
+
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
-    map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, true);
+    if (bombPlaced === false) {
+      map.grid[x][y] = new Bomb(
+        x * this.size,
+        y * this.size,
+        this.size,
+        true,
+        this.id
+      );
+    }
   }
 
   moveUp() {
@@ -171,16 +186,6 @@ export default class Player {
 
   moveRight() {
     this.direction = "right";
-
-    // if (this.activeSkin === 0) {
-    //   image(
-    //     skins.babel1[3],
-    //     this.position.pixelX,
-    //     this.position.pixelY,
-    //     this.size,
-    //     this.size
-    //   );
-    // }
 
     if (this.checkCollision(1, 0) === true) {
       this.position.y = this.position.getGridPosition().y * this.size;
