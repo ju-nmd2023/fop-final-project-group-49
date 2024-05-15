@@ -1,37 +1,66 @@
+import { font, GAME_SCREEN, gameState, SKINS_SCREEN } from "../main.js";
+import Player from "./player.js";
+
 export default class Result {
+  constructor() {
+    // this.winner = Player[(0, 1)];
+  }
+
   displayResult(x, y) {
-    textSize(30);
+    textSize(50);
     textAlign(CENTER);
     textFont(font);
-    text("Player x wins!", 400, 900); // Make an if statement depending on who wins
+    // text("Player" + winner + "Wins!", x, y); // Make an if statement depending on who wins
   }
 
   playAgainButton(x, y) {
-    fill(209, 147, 31);
-    rect(400, 900, 200, 100, 20);
-    fill(20, 20, 20);
+    fill(209, 147, 31); // Orange button color
+    rect(x - 200, y, 400, 150, 20); // Adjust button dimensions if needed
+
+    fill(20, 20, 20); // Text color
     textSize(30);
     textAlign(CENTER);
     textFont(font);
-    text("Play Again", 520, 900);
+    text("Play Again", x, y + 80);
   }
 
   changeCharacterButton(x, y) {
     fill(209, 147, 31);
-    rect(400, 700, 200, 100, 20);
-    fill(20, 20, 20);
-    textSize(30);
+    rect(x - 200, y, 400, 150, 20); // Adjust button dimensions if needed
+
+    fill(20, 20, 20); // Text color
+    textSize(27);
     textAlign(CENTER);
     textFont(font);
-    text("Change character", 300, 900);
+    text("Change Character", x, y + 80);
   }
 
   mouseClicked() {
-    if (mouseX > 500 && mouseX < 520 && mouseY > 880 && mouseY < 910) {
-      gameState = GAME_SCREEN;
+    // Check for Play Again button click
+    if (
+      mouseX > width / 2 - 200 &&
+      mouseX < width / 2 + 200 &&
+      mouseY > 400 &&
+      mouseY < 550
+    ) {
+      gameState = GAME_SCREEN; // Transition to game screen
     }
-    if (mouseX > 290 && mouseX < 310 && mouseY > 890 && mouseY < 910) {
-      gameState = SKINS_SCREEN;
+
+    // Check for Change Character button click
+    if (
+      mouseX > width / 2 - 200 &&
+      mouseX < width / 2 + 200 &&
+      mouseY > 600 &&
+      mouseY < 750
+    ) {
+      gameState = SKINS_SCREEN; // Transition to skins screen
     }
+  }
+
+  draw() {
+    background(173, 100, 36);
+    this.displayResult(width / 2, 250);
+    this.playAgainButton(width / 2, 400);
+    this.changeCharacterButton(width / 2, 600);
   }
 }

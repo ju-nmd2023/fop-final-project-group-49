@@ -1,5 +1,5 @@
 import Point from "./point.js";
-import { map } from "../main.js";
+import { map, speedPwrImage } from "../main.js";
 
 export default class Powerup {
   constructor(x, y, size, type) {
@@ -12,7 +12,42 @@ export default class Powerup {
     push();
     fill(0, 255, 0);
     translate(this.size / 2, this.size / 2);
-    circle(this.position.pixelX, this.position.pixelY, this.size);
+    if (this.type === "speed") {
+      // How to position and display imgs from gpt 14-05-2024 (https://chat.openai.com/share/a7f83acd-c2b8-4477-8953-5c8224804cc4)
+      image(
+        speedPwrImage.speedPwrImage,
+        this.position.pixelX - this.size / 2,
+        this.position.pixelY - this.size / 2,
+        this.size,
+        this.size
+      );
+    } else if (this.type === "slow") {
+      image(
+        speedPwrImage.slowPwrImage,
+        this.position.pixelX - this.size / 2,
+        this.position.pixelY - this.size / 2,
+        this.size,
+        this.size
+      );
+    } else if (this.type === "bomb") {
+      image(
+        speedPwrImage.bigBombPwrImage,
+        this.position.pixelX - this.size / 2,
+        this.position.pixelY - this.size / 2,
+        this.size,
+        this.size
+      );
+    } else if (this.type === "life") {
+      image(
+        speedPwrImage.lifePwrImage,
+        this.position.pixelX - this.size / 2,
+        this.position.pixelY - this.size / 2,
+        this.size,
+        this.size
+      );
+    } else {
+      circle(this.position.pixelX, this.position.pixelY, this.size);
+    }
     pop();
   }
 
@@ -24,3 +59,5 @@ export default class Powerup {
     // TODO: Implement pickup logic
   }
 }
+
+// i draw if type = speed visa denna bild

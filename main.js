@@ -12,7 +12,7 @@ import Sidebar from "./classes/sidebar.js";
 let size = 60;
 
 let START_SCREEN = 1; // Naming variables from gemini 29-04-2024
-let SKINS_SCREEN = 2;
+export let SKINS_SCREEN = 2;
 export let GAME_SCREEN = 3;
 let RESULT_SCREEN = 4;
 
@@ -37,7 +37,13 @@ export let speedPwrImage;
 function preload() {
   font = loadFont("assets/AGENTORANGE.TTF");
   img = loadImage("assets/BabelGameByggnader.png");
-  // speedPwrImage = loadImage("");
+  speedPwrImage = {
+    speedPwrImage: loadImage("assets/hotshot.png"),
+    slowPwrImage: loadImage("assets/ladokU.png"),
+    bigBombPwrImage: loadImage("assets/billys.png"),
+    lifePwrImage: loadImage("assets/resorb.png"),
+  };
+
   images = {
     indestructible: [
       loadImage("assets/blueHouse.png"),
@@ -126,6 +132,9 @@ async function setup() {
 
 function draw() {
   clear();
+  gameState = RESULT_SCREEN;
+  resultScreen.draw();
+
   if (gameState === START_SCREEN) {
     startScreen.draw();
   } else if (gameState === SKINS_SCREEN) {
@@ -138,8 +147,10 @@ function draw() {
       // Start the timer only if it hasn't been started yet
       sidebar.startTimer();
     }
-  } else if (gameState === RESULT_SCREEN) {
-    resultScreen.draw();
+    if (gameState === RESULT_SCREEN) {
+      resultScreen.draw();
+      resultScreen.mouseClicked(); // Call mouseClicked() within Result class
+    }
   }
 
   if (keyIsDown(UP_ARROW)) {
