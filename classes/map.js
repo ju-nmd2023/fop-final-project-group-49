@@ -14,8 +14,6 @@ export default class Map {
     this.block;
   }
 
-  // map.grid[x][y].indestructible => true
-
   draw() {
     background(173, 100, 36);
     for (let x = 0; x < this.width; x += this.gridSize) {

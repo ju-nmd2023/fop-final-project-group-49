@@ -3,11 +3,12 @@ import { map, playerList } from "../main.js";
 import Block from "./block.js";
 
 export default class Bomb {
-  constructor(x, y, size, powerBomb) {
+  constructor(x, y, size, powerBomb, playerId) {
     this.position = new Point(x, y, size);
     this.size = size;
     this.timeToExlode = 180;
     this.powerBomb = powerBomb;
+    this.playerId = playerId;
   }
 
   draw() {
