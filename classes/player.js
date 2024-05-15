@@ -220,7 +220,7 @@ export default class Player {
     let playerGridPosition = this.position.getGridPosition(); // return grid position in grid block x and y
 
     let nextGrid = // Is the box youre moving towards.
-      map.grid[playerGridPosition.x + directionX][
+      map.grid[playerGridPosition.x + directionX]?.[
         playerGridPosition.y + directionY
       ];
 

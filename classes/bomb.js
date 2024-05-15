@@ -92,7 +92,7 @@ export default class Bomb {
         }
       });
 
-      if (map.grid[newPosition.x][newPosition.y] instanceof Block) {
+      if (map.grid[newPosition.x]?.[newPosition.y] instanceof Block) {
         // Checks if the bomb explosion position is a block
         if (middlePosition) {
           if (map.grid[middlePosition.x][middlePosition.y]?.indestructible) {
