@@ -132,8 +132,6 @@ async function setup() {
 
 function draw() {
   clear();
-  gameState = RESULT_SCREEN;
-  resultScreen.draw();
 
   if (gameState === START_SCREEN) {
     startScreen.draw();
