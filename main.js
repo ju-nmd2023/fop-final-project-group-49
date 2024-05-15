@@ -14,7 +14,7 @@ let size = 60;
 let START_SCREEN = 1; // Naming variables from gemini 29-04-2024
 export let SKINS_SCREEN = 2;
 export let GAME_SCREEN = 3;
-let RESULT_SCREEN = 4;
+export let RESULT_SCREEN = 4;
 
 export let gameState = 1;
 
@@ -33,6 +33,10 @@ export let img;
 export let images;
 export let skins;
 export let speedPwrImage;
+
+export let winner;
+export let loser;
+let loserFound = false;
 
 function preload() {
   font = loadFont("assets/AGENTORANGE.TTF");
@@ -139,16 +143,29 @@ function draw() {
     skinsScreen.draw();
   } else if (gameState === GAME_SCREEN) {
     map.draw();
+    playerList.forEach((player) => {
+      // loops through players of their lives, if no lives left, change to gamestate.
+      if (player.lives === 0) {
+        gameState = 4;
+        loserFound = true;
+        loser = player.id;
+        console.log("the loser is: Player" + loser);
+        // if (player.lives > 0) {
+        //   winner = player.id;
+        //   console.log("The winner is: Player" + winner);
+        // }
+      }
+    });
+
     playerList.forEach((player) => player.draw());
     sidebar.draw();
     if (sidebar.startTime === null) {
       // Start the timer only if it hasn't been started yet
       sidebar.startTimer();
     }
-    if (gameState === RESULT_SCREEN) {
-      resultScreen.draw();
-      resultScreen.mouseClicked(); // Call mouseClicked() within Result class
-    }
+  } else if (gameState === RESULT_SCREEN) {
+    resultScreen.draw();
+    resultScreen.mouseClicked(); // Call mouseClicked() within Result class
   }
   // player 1 movement
   if (keyIsDown(UP_ARROW)) {

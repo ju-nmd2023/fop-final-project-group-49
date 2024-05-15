@@ -2,7 +2,7 @@ import Point from "./point.js";
 import Skin from "./skin.js";
 import Powerup from "./powerup.js";
 //import { map, speedPwrImage } from "../main.js";
-import { map, images, skins } from "../main.js";
+import { map, images, skins, gameState, playerList } from "../main.js";
 import Bomb from "./bomb.js";
 
 // ChosenSkinIndex represents the players skin through entire game
@@ -70,7 +70,7 @@ export default class Player {
       this.position.pixelX,
       this.position.pixelY,
       this.size,
-      this.size,
+      this.size
     );
 
     //const currentSkin = this.skin.activeSkin;
@@ -81,9 +81,6 @@ export default class Player {
 
   die() {
     this.lives--;
-    if (this.lives === 0) {
-      console.log("DEAD");
-    }
   }
 
   placeBomb() {
@@ -110,7 +107,7 @@ export default class Player {
         y * this.size,
         this.size,
         true,
-        this.id,
+        this.id
       );
     }
   }

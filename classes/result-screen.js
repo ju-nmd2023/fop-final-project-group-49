@@ -1,5 +1,5 @@
-import { font, GAME_SCREEN, gameState, SKINS_SCREEN } from "../main.js";
-import Player from "./player.js";
+import { font, GAME_SCREEN, gameState, SKINS_SCREEN, loser } from "../main.js";
+//import Player from "./player.js";
 
 export default class Result {
   constructor() {
@@ -10,6 +10,11 @@ export default class Result {
     textSize(50);
     textAlign(CENTER);
     textFont(font);
+    if (loser === 0) {
+      text("Player 1 wins!", x, y - 80); //player 0
+    } else {
+      text("Player 2 wins!", x, y - 80); //player 1
+    }
     // text("Player" + winner + "Wins!", x, y); // Make an if statement depending on who wins
   }
 
