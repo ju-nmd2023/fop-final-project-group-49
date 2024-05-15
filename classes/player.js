@@ -207,6 +207,7 @@ export default class Player {
     if (powerup instanceof Powerup) {
       if (powerup.type === "life") {
         this.lives += 1;
+        powerup.pickup();
       } else {
         this.powerups.push(powerup.pickup());
       }
