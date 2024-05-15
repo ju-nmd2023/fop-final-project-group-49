@@ -23,7 +23,7 @@ export default class Map {
         fill(200, 200, 200).rect(
           this.marginLeft + x,
           this.marginTop + y,
-          this.gridSize
+          this.gridSize,
         );
       }
     }
@@ -53,19 +53,21 @@ export default class Map {
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              true
+              true,
             );
           } else if (map[xIndex][yIndex] === 2) {
             // If the block is clear spawn point
-            this.grid[xIndex][yIndex] = undefined;
+            this.grid[xIndex][yIndex] = null;
           } else if (Math.random() < 0.5) {
             // If the block is destructible
             this.grid[xIndex][yIndex] = new Block(
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              false
+              false,
             );
+          } else {
+            this.grid[xIndex][yIndex] = null;
           }
         }
       }

@@ -53,7 +53,7 @@ export default class Powerup {
 
   pickup() {
     let gridposition = this.position.getGridPosition(); //removes the powerup from the map
-    map.grid[gridposition.x][gridposition.y] = undefined;
+    map.grid[gridposition.x][gridposition.y] = null;
     return { type: this.type, duration: 900 }; // lägga till powerup i spelarens lista på powerups
 
     // TODO: Implement pickup logic

@@ -12,7 +12,7 @@ export default class Block {
       Math.random() *
         (this.indestructible
           ? images.indestructible.length
-          : images.destructible.length)
+          : images.destructible.length),
     );
   }
 
@@ -23,7 +23,7 @@ export default class Block {
         this.position.pixelX,
         this.position.pixelY,
         this.size,
-        this.size
+        this.size,
       );
     } else {
       image(
@@ -31,7 +31,7 @@ export default class Block {
         this.position.pixelX,
         this.position.pixelY,
         this.size,
-        this.size
+        this.size,
       );
     }
   }
@@ -44,10 +44,10 @@ export default class Block {
           this.position.x,
           this.position.y,
           this.size,
-          this.powerup
+          this.powerup,
         );
       } else {
-        map.grid[gridPosition.x][gridPosition.y] = undefined;
+        map.grid[gridPosition.x][gridPosition.y] = null;
       }
     }
   }

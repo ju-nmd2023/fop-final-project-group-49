@@ -232,7 +232,7 @@ export default class Player {
     };
 
     if (
-      nextGrid === undefined ||
+      nextGrid === null ||
       nextGrid instanceof Powerup ||
       (playerPosition.x > playerGridPosition.x && this.direction === "left") ||
       (playerPosition.x < playerGridPosition.x && this.direction === "right") ||

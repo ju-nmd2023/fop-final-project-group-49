@@ -52,7 +52,7 @@ export default class Bomb {
       ];
     }
 
-    map.grid[gridPosition.x][gridPosition.y] = undefined;
+    map.grid[gridPosition.x][gridPosition.y] = null;
 
     for (const [offsetX, offsetY] of bombOffsets) {
       let newPosition = {
