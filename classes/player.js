@@ -22,8 +22,6 @@ export default class Player {
   }
 
   draw() {
-    console.log(skins[this.activeSkin]);
-
     let imageIndex = 0;
     this.skin.animationFrame++;
 
@@ -32,7 +30,6 @@ export default class Player {
     } else if (this.direction === "up") {
       imageIndex = 5;
     } else if (this.direction === "left") {
-      console.log(this.skin.animationFrame);
       if (
         this.skin.animationFrame % 12 === 0 &&
         this.skin.directionImage === true
@@ -49,6 +46,7 @@ export default class Player {
         imageIndex = 1;
       }
     }
+
     if (this.direction === "right") {
       if (
         this.skin.animationFrame % 12 === 0 &&
@@ -66,6 +64,7 @@ export default class Player {
         imageIndex = 4;
       }
     }
+
     image(
       skins[this.activeSkin][imageIndex],
       this.position.pixelX,
@@ -78,6 +77,13 @@ export default class Player {
     //const currentImage = currentSkin[this.direction]; // Assuming direction property exists
     //image(loadImage(currentImage), this.x, this.y, this.size, this.size);
     this.updatePickup();
+  }
+
+  die() {
+    this.lives--;
+    if (this.lives === 0) {
+      console.log("DEAD");
+    }
   }
 
   placeBomb() {
