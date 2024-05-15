@@ -15,24 +15,104 @@ export default class Player {
     this.size = size;
     this.direction = 0;
     this.activeSkin = 0;
-    this.skin = []; // Line from gemini 09-05-2024
+    this.skin = { animationFrame: 0, directionImage: true }; // Line from gemini 09-05-2024
     this.direction = "down"; // The direction the player is facing, to animate the player
     this.powerups = []; // The active powerups
     this.lives = 1; // The amount of lives the player has default always one, can be increased
   }
 
   draw() {
-    push();
-    fill(255, 255, 0);
-    rect(this.position.pixelX, this.position.pixelY, this.size);
-    pop();
+    let imageIndex = 0;
+    this.skin.animationFrame++;
+
+    if (this.direction === "down") {
+      imageIndex = 0;
+    } else if (this.direction === "up") {
+      imageIndex = 5;
+    } else if (this.direction === "left") {
+      if (
+        this.skin.animationFrame % 12 === 0 &&
+        this.skin.directionImage === true
+      ) {
+        this.skin.directionImage = false;
+        this.skin.animationFrame = 0;
+      } else if (this.skin.animationFrame % 12 === 0) {
+        this.skin.directionImage = true;
+        this.skin.animationFrame = 0;
+      }
+      if (this.skin.directionImage === true) {
+        imageIndex = 2;
+      } else {
+        imageIndex = 1;
+      }
+    }
+
+    if (this.direction === "right") {
+      if (
+        this.skin.animationFrame % 12 === 0 &&
+        this.skin.directionImage === true
+      ) {
+        this.skin.directionImage = false;
+        this.skin.animationFrame = 0;
+      } else if (this.skin.animationFrame % 12 === 0) {
+        this.skin.directionImage = true;
+        this.skin.animationFrame = 0;
+      }
+      if (this.skin.directionImage === true) {
+        imageIndex = 3;
+      } else {
+        imageIndex = 4;
+      }
+    }
+
+    image(
+      skins[this.activeSkin][imageIndex],
+      this.position.pixelX,
+      this.position.pixelY,
+      this.size,
+      this.size,
+    );
+
+    //const currentSkin = this.skin.activeSkin;
+    //const currentImage = currentSkin[this.direction]; // Assuming direction property exists
+    //image(loadImage(currentImage), this.x, this.y, this.size, this.size);
     this.updatePickup();
   }
 
+  die() {
+    this.lives--;
+    if (this.lives === 0) {
+      console.log("DEAD");
+    }
+  }
+
   placeBomb() {
+    let bombPlaced = false;
+
+    map.grid.forEach((xRow) => {
+      // loops through grid map for bombs
+      xRow.forEach((yRow) => {
+        if (yRow instanceof Bomb) {
+          // checks if bomb has same id as player
+          if (yRow.playerId === this.id) {
+            bombPlaced = true;
+          }
+        }
+      });
+    });
+
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
-    map.grid[x][y] = new Bomb(x * this.size, y * this.size, this.size, true);
+    if (bombPlaced === false) {
+      // If no bomb is placed, you can place a bomb, else you cant
+      map.grid[x][y] = new Bomb(
+        x * this.size,
+        y * this.size,
+        this.size,
+        true,
+        this.id,
+      );
+    }
   }
 
   moveUp() {
@@ -115,16 +195,6 @@ export default class Player {
   moveRight() {
     this.direction = "right";
 
-    // if (this.activeSkin === 0) {
-    //   image(
-    //     skins.babel1[3],
-    //     this.position.pixelX,
-    //     this.position.pixelY,
-    //     this.size,
-    //     this.size
-    //   );
-    // }
-
     if (this.checkCollision(1, 0) === true) {
       this.position.y = this.position.getGridPosition().y * this.size;
       this.position.pixelY =
@@ -152,7 +222,7 @@ export default class Player {
     let playerGridPosition = this.position.getGridPosition(); // return grid position in grid block x and y
 
     let nextGrid = // Is the box youre moving towards.
-      map.grid[playerGridPosition.x + directionX][
+      map.grid[playerGridPosition.x + directionX]?.[
         playerGridPosition.y + directionY
       ];
 
@@ -186,7 +256,12 @@ export default class Player {
     let playerGridPosition = this.position.getGridPosition();
     let powerup = map.grid[playerGridPosition.x]?.[playerGridPosition.y];
     if (powerup instanceof Powerup) {
-      this.powerups.push(powerup.pickup());
+      if (powerup.type === "life") {
+        this.lives += 1;
+        powerup.pickup();
+      } else {
+        this.powerups.push(powerup.pickup());
+      }
     }
   }
 }

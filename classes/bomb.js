@@ -3,11 +3,12 @@ import { map, playerList } from "../main.js";
 import Block from "./block.js";
 
 export default class Bomb {
-  constructor(x, y, size, powerBomb) {
+  constructor(x, y, size, powerBomb, playerId) {
     this.position = new Point(x, y, size);
     this.size = size;
     this.timeToExlode = 180;
     this.powerBomb = powerBomb;
+    this.playerId = playerId;
   }
 
   draw() {
@@ -31,6 +32,7 @@ export default class Bomb {
 
     let bombOffsets = [
       //This is changed if you have the bomb powerup
+      [0, 0],
       [0, 1], // Up
       [0, -1], // Down
       [-1, 0], // Left
@@ -38,6 +40,7 @@ export default class Bomb {
     ];
     if (this.powerBomb === true) {
       bombOffsets = [
+        [0, 0],
         [0, 2], // Up
         [0, -2], // Down
         [-2, 0], // Left
@@ -91,7 +94,7 @@ export default class Bomb {
         }
       });
 
-      if (map.grid[newPosition.x][newPosition.y] instanceof Block) {
+      if (map.grid[newPosition.x]?.[newPosition.y] instanceof Block) {
         // Checks if the bomb explosion position is a block
         if (middlePosition) {
           if (map.grid[middlePosition.x][middlePosition.y]?.indestructible) {
