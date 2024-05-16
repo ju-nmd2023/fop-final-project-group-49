@@ -1,12 +1,12 @@
 // Sidebar in game screen with stats, time etc. 11-05-2024 (https://chat.openai.com/share/00535081-827b-4115-be17-81876288c14a)
-import { GAME_SCREEN, gameState } from "../main.js";
+import { GAME_SCREEN, gameState, playerList } from "../main.js";
+import Player from "../classes/player.js";
 
 export default class Sidebar {
   constructor(x, y) {
     this.startTime = null; // Use performance.now() for start time
     this.startTimeDuration = 3 * 60 * 1000; // 3 minutes in milliseconds
     this.isPaused = false; // Add a variable to track pause state
-    this.lives = 1;
   }
 
   startTimer() {
@@ -31,8 +31,8 @@ export default class Sidebar {
   sidebar(x, y) {
     fill(209, 147, 31);
     rect(x - 300, y, 600, 90, 20);
-    rect(x - 150, y + 7, 75, 75, 10);
-    rect(x - 250, y + 7, 75, 75, 10);
+    rect(x - 150, y + 7, 75, 45, 10);
+    rect(x - 250, y + 7, 75, 45, 10);
     rect(width / 2 + 70, y + 15, 110, 60, 10);
     // Pause button
     rect(width / 2 - 20, y + 25, 40, 40, 5);
@@ -49,19 +49,23 @@ export default class Sidebar {
       return; // Exit draw loop
     }
 
-    // Display lives for player 1
+    // Display lives for player 2
     textAlign(CENTER, CENTER);
     fill(0);
     textSize(20);
-    text(this.lives, width / 2 - 150, 950);
+    text(playerList[1].lives, width / 2 - 115, 925);
+    textSize(15);
+    text("Player2", width / 2 - 115, 970);
 
-    // Display lives for player 2
+    // Display lives for player 1
     textAlign(CENTER, CENTER);
-    text(this.lives, width / 2 - 250, 950);
+    text(playerList[0].lives, width / 2 - 215, 925);
+    textSize(15);
+    text("player1", width / 2 - 215, 970);
 
     // Check if the game is in the game screen state before starting the timer
     if (gameState === GAME_SCREEN) {
-      let elapsedTime = millis() - this.startTime;
+      let elapsedTime = millis() + 2000 - this.startTime;
       let remainingTime = this.startTimeDuration - elapsedTime;
       let minutes = Math.floor(remainingTime / 60000);
       let seconds = Math.floor((remainingTime % 60000) / 1000);

@@ -144,16 +144,12 @@ function draw() {
   } else if (gameState === GAME_SCREEN) {
     map.draw();
     playerList.forEach((player) => {
-      // loops through players of their lives, if no lives left, change to gamestate.
+      // loops through players of their lives, if no lives left, change to gamestate 4.
       if (player.lives === 0) {
         gameState = 4;
         loserFound = true;
         loser = player.id;
         console.log("the loser is: Player" + loser);
-        // if (player.lives > 0) {
-        //   winner = player.id;
-        //   console.log("The winner is: Player" + winner);
-        // }
       }
     });
 

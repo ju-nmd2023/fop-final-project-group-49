@@ -11,9 +11,9 @@ export default class Result {
     textAlign(CENTER);
     textFont(font);
     if (loser === 0) {
-      text("Player 1 wins!", x, y - 80); //player 0
+      text("Player 2 wins!", x, y - 80); //player 0 is now player 1
     } else {
-      text("Player 2 wins!", x, y - 80); //player 1
+      text("Player 1 wins!", x, y - 80); //player 1 is now player 2
     }
     // text("Player" + winner + "Wins!", x, y); // Make an if statement depending on who wins
   }
