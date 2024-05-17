@@ -1,5 +1,4 @@
 import { font, GAME_SCREEN, gameState, SKINS_SCREEN, loser } from "../main.js";
-//import Player from "./player.js";
 
 export default class Result {
   constructor() {

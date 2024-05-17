@@ -18,10 +18,10 @@ export let RESULT_SCREEN = 4;
 
 export let gameState = 1;
 
-let startScreen = new StartScreen(0, 0, 500, 600);
-let skinsScreen = new SkinsScreen(0, 0, 500, 500);
-let resultScreen = new Result(0, 0, 500, 600);
-let sidebar = new Sidebar(0, 0, 600, 90);
+let startScreen = new StartScreen(500, 600);
+let skinsScreen = new SkinsScreen(500, 500);
+let resultScreen = new Result(500, 600);
+let sidebar = new Sidebar(600, 90);
 
 export let map = new Map(900, 780, size);
 let player1 = new Player(0, 120, 120, size);
