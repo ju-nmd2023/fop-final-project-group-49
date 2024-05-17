@@ -1,6 +1,6 @@
 import Block from "./block.js";
 import Bomb from "./bomb.js";
-import { images } from "../main.js";
+import { images, buildings } from "../main.js";
 
 export default class Map {
   constructor(width, height, gridSize) {
@@ -12,6 +12,7 @@ export default class Map {
     this.grid = [];
     this.powerupTypes = ["bomb", "slow", "speed", "life"];
     this.block;
+    this.centerBuilding = 0;
   }
 
   draw() {
@@ -23,7 +24,7 @@ export default class Map {
         fill(200, 200, 200).rect(
           this.marginLeft + x,
           this.marginTop + y,
-          this.gridSize,
+          this.gridSize
         );
       }
     }
@@ -36,12 +37,25 @@ export default class Map {
         }
       });
     });
+    rect(
+      this.width / 2 + this.marginLeft - 90,
+      this.height / 2 + this.marginTop - 90,
+      180,
+      180
+    );
+    image(
+      buildings[this.centerBuilding],
+      this.width / 2 + this.marginLeft - 90,
+      this.height / 2 + this.marginTop - 90,
+      180,
+      180
+    );
   }
 
   async generate(i) {
     loadJSON(`../maps/map${i}.json`, (data) => {
       let map = data;
-
+      this.centerBuilding = Math.floor(Math.random() * buildings.length);
       // This creates all blocks in the grid
       for (let xIndex = 0; xIndex < map.length; xIndex++) {
         //loops through the map in x and then after y
@@ -53,18 +67,18 @@ export default class Map {
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              true,
+              true
             );
           } else if (map[xIndex][yIndex] === 2) {
             // If the block is clear spawn point
             this.grid[xIndex][yIndex] = null;
-          } else if (Math.random() < 0.5) {
+          } else if (Math.random() < 0.9) {
             // If the block is destructible
             this.grid[xIndex][yIndex] = new Block(
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              false,
+              false
             );
           } else {
             this.grid[xIndex][yIndex] = null;

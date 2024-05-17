@@ -40,6 +40,7 @@ export let skins;
 export let speedPwrImage;
 export let bombImg;
 export let fartSound;
+export let buildings;
 
 export let winner;
 export let loser;
@@ -76,6 +77,11 @@ function preload() {
       loadImage("assets/skinscreenbabel/06:front.png"),
     ],
   };
+  buildings = [
+    loadImage("assets/Jth.png"),
+    loadImage("assets/Aka.png"),
+    loadImage("assets/Systembolaget.png"),
+  ];
   skins = [
     [
       //Red babel
