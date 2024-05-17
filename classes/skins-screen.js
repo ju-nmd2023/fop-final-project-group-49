@@ -1,7 +1,7 @@
-import { font, images, img } from "../main.js";
+import { font, images } from "../main.js";
 
 export default class SkinsScreen {
-  constructor(x, y, width, height) {
+  constructor(width, height) {
     this.width = width;
     this.height = height;
     this.activeSkins = [0, 1]; // Active skins for player one and player two
@@ -108,7 +108,7 @@ export default class SkinsScreen {
             xPosition + 10,
             yPosition - 50,
             300,
-            400
+            400,
           );
         }
       }

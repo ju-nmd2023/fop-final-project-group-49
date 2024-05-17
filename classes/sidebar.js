@@ -2,7 +2,7 @@
 import { GAME_SCREEN, gameState, playerList } from "../main.js";
 
 export default class Sidebar {
-  constructor(x, y) {
+  constructor() {
     this.startTime = null; // Use performance.now() for start time
     this.startTimeDuration = 3 * 60 * 1000; // 3 minutes in milliseconds
     this.isPaused = false; // Add a variable to track pause state
@@ -52,13 +52,13 @@ export default class Sidebar {
     textAlign(CENTER, CENTER);
     fill(0);
     textSize(20);
-    text(playerList[1].lives, width / 2 - 115, 925);
+    text(playerList[1]?.lives, width / 2 - 115, 925);
     textSize(15);
     text("Player2", width / 2 - 115, 970);
 
     // Display lives for player 1
     textAlign(CENTER, CENTER);
-    text(playerList[0].lives, width / 2 - 215, 925);
+    text(playerList[0]?.lives, width / 2 - 215, 925);
     textSize(15);
     text("player1", width / 2 - 215, 970);
 
@@ -76,7 +76,7 @@ export default class Sidebar {
       text(
         minutes + ":" + (seconds < 10 ? "0" : "") + seconds,
         width / 2 + 128,
-        height - 57
+        height - 57,
       );
 
       // Check if the timer has reached zero

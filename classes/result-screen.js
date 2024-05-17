@@ -1,5 +1,4 @@
 import { font, GAME_SCREEN, gameState, SKINS_SCREEN, loser } from "../main.js";
-//import Player from "./player.js";
 
 export default class Result {
   constructor() {
@@ -15,7 +14,6 @@ export default class Result {
     } else {
       text("Player 1 wins!", x, y - 80); //player 1 is now player 2
     }
-    // text("Player" + winner + "Wins!", x, y); // Make an if statement depending on who wins
   }
 
   playAgainButton(x, y) {
@@ -40,7 +38,7 @@ export default class Result {
     text("Change Character", x, y + 80);
   }
 
-  mouseClicked() {
+  mouseClickedPlayAgain() {
     // Check for Play Again button click
     if (
       mouseX > width / 2 - 200 &&
@@ -48,9 +46,10 @@ export default class Result {
       mouseY > 400 &&
       mouseY < 550
     ) {
-      gameState = GAME_SCREEN; // Transition to game screen
+      return true; // Transition to game screen
     }
-
+  }
+  mouseClickedChangeSkin() {
     // Check for Change Character button click
     if (
       mouseX > width / 2 - 200 &&
@@ -58,7 +57,7 @@ export default class Result {
       mouseY > 600 &&
       mouseY < 750
     ) {
-      gameState = SKINS_SCREEN; // Transition to skins screen
+      return true; // Transition to skins screen
     }
   }
 
