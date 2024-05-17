@@ -72,7 +72,7 @@ export default class Map {
           } else if (map[xIndex][yIndex] === 2) {
             // If the block is clear spawn point
             this.grid[xIndex][yIndex] = null;
-          } else if (Math.random() < 0.5) {
+          } else if (Math.random() < 0.9) {
             // If the block is destructible
             this.grid[xIndex][yIndex] = new Block(
               xIndex * this.gridSize,
