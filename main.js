@@ -136,11 +136,13 @@ async function setup() {
 
 function draw() {
   clear();
+  let isSkinSelection = false; // A flag so that the skin selection stops after selecting
 
   if (gameState === START_SCREEN) {
     startScreen.draw();
   } else if (gameState === SKINS_SCREEN) {
     skinsScreen.draw();
+    isSkinSelection = true;
   } else if (gameState === GAME_SCREEN) {
     map.draw();
     playerList.forEach((player) => {

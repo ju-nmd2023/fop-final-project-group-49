@@ -1,6 +1,5 @@
 // Sidebar in game screen with stats, time etc. 11-05-2024 (https://chat.openai.com/share/00535081-827b-4115-be17-81876288c14a)
 import { GAME_SCREEN, gameState, playerList } from "../main.js";
-import Player from "../classes/player.js";
 
 export default class Sidebar {
   constructor(x, y) {

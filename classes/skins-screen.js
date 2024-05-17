@@ -9,6 +9,11 @@ export default class SkinsScreen {
     this.setupKeyboardEvents(); // Call setupKeyboardEvents in constructor
   }
 
+  getChosenSkins() {
+    // Array returning the chosen skin index
+    return this.activeSkins;
+  }
+
   // Setup keyboard event listeners
   setupKeyboardEvents() {
     document.addEventListener("keydown", (event) => {
@@ -47,10 +52,12 @@ export default class SkinsScreen {
   changeActiveSkin(player, direction) {
     const newIndex = this.activeSkins[player] + direction;
     if (newIndex >= 0 && newIndex <= 5) {
-      // Ensure player two doesn't select the same character as player one
-      if (player === 1 && newIndex === this.activeSkins[0]) return;
+      const otherPlayerSkin = this.activeSkins[(player + 1) % 2]; // Get the other player's skin index
+      if (newIndex === otherPlayerSkin) {
+        return; // Players cannot chose same index (character)
+      }
       this.activeSkins[player] = newIndex;
-      this.highlightedSkinIndex[player] = newIndex; // Highlight the newly selected skin
+      this.highlightedSkinIndex[player] = newIndex;
       console.log("Player", player + 1, "selected Skin", newIndex);
     }
   }

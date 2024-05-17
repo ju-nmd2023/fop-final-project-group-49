@@ -73,9 +73,6 @@ export default class Player {
       this.size
     );
 
-    //const currentSkin = this.skin.activeSkin;
-    //const currentImage = currentSkin[this.direction]; // Assuming direction property exists
-    //image(loadImage(currentImage), this.x, this.y, this.size, this.size);
     this.updatePickup();
   }
 
