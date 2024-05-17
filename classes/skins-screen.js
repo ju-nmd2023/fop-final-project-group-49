@@ -1,4 +1,4 @@
-import { font, images } from "../main.js";
+import { font, images, gameState } from "../main.js";
 
 export default class SkinsScreen {
   constructor(width, height) {
@@ -16,36 +16,38 @@ export default class SkinsScreen {
 
   // Setup keyboard event listeners
   setupKeyboardEvents() {
-    document.addEventListener("keydown", (event) => {
-      switch (event.key) {
-        // Player One character selection
-        case "ArrowLeft":
-          this.changeActiveSkin(0, -1); // Move left for player one
-          break;
-        case "ArrowRight":
-          this.changeActiveSkin(0, 1); // Move right for player one
-          break;
-        case "ArrowUp":
-          this.changeActiveSkin(0, -3); // Move up for player one
-          break;
-        case "ArrowDown":
-          this.changeActiveSkin(0, 3); // Move down for player one
-          break;
-        // Player Two character selection
-        case "a":
-          this.changeActiveSkin(1, -1); // Move left for player two
-          break;
-        case "d":
-          this.changeActiveSkin(1, 1); // Move right for player two
-          break;
-        case "w":
-          this.changeActiveSkin(1, -3); // Move up for player two
-          break;
-        case "s":
-          this.changeActiveSkin(1, 3); // Move down for player two
-          break;
-      }
-    });
+    if (gameState === 2) {
+      document.addEventListener("keydown", (event) => {
+        switch (event.key) {
+          // Player One character selection
+          case "ArrowLeft":
+            this.changeActiveSkin(0, -1); // Move left for player one
+            break;
+          case "ArrowRight":
+            this.changeActiveSkin(0, 1); // Move right for player one
+            break;
+          case "ArrowUp":
+            this.changeActiveSkin(0, -3); // Move up for player one
+            break;
+          case "ArrowDown":
+            this.changeActiveSkin(0, 3); // Move down for player one
+            break;
+          // Player Two character selection
+          case "a":
+            this.changeActiveSkin(1, -1); // Move left for player two
+            break;
+          case "d":
+            this.changeActiveSkin(1, 1); // Move right for player two
+            break;
+          case "w":
+            this.changeActiveSkin(1, -3); // Move up for player two
+            break;
+          case "s":
+            this.changeActiveSkin(1, 3); // Move down for player two
+            break;
+        }
+      });
+    }
   }
 
   // Change active skin index based on arrow key presses
@@ -108,7 +110,7 @@ export default class SkinsScreen {
             xPosition + 10,
             yPosition - 50,
             300,
-            400,
+            400
           );
         }
       }

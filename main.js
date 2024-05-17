@@ -4,6 +4,7 @@ import StartScreen from "./classes/start-screen.js";
 import SkinsScreen from "./classes/skins-screen.js";
 import Result from "./classes/result-screen.js";
 import Sidebar from "./classes/sidebar.js";
+import Skin from "./classes/skin.js";
 
 // Create a new player and map
 // The player (x, y, size)
@@ -25,8 +26,10 @@ let sidebar = new Sidebar(600, 90);
 
 export let map = new Map(900, 780, size);
 
-let player1;
-let player2;
+export let player1;
+export let player2;
+// player1.activeSkin = 0;
+// player2.activeSkin = 1;
 
 export let playerList;
 
@@ -35,6 +38,8 @@ export let img;
 export let images;
 export let skins;
 export let speedPwrImage;
+export let bombImg;
+export let fartSound;
 
 export let winner;
 export let loser;
@@ -42,13 +47,15 @@ let loserFound = false;
 
 function preload() {
   font = loadFont("assets/AGENTORANGE.TTF");
-  img = loadImage("assets/BabelGameByggnader.png");
+  // fartSound = loadSound("assets/fart-with-reverb-39675.mp3");
   speedPwrImage = {
     speedPwrImage: loadImage("assets/hotshot.png"),
     slowPwrImage: loadImage("assets/ladokU.png"),
     bigBombPwrImage: loadImage("assets/billys.png"),
     lifePwrImage: loadImage("assets/resorb.png"),
   };
+
+  bombImg = loadImage("assets/Bomb.png");
 
   images = {
     indestructible: [
@@ -144,13 +151,11 @@ async function setup() {
 
 function draw() {
   clear();
-  let isSkinSelection = false; // A flag so that the skin selection stops after selecting
 
   if (gameState === START_SCREEN) {
     startScreen.draw();
   } else if (gameState === SKINS_SCREEN) {
     skinsScreen.draw();
-    isSkinSelection = true;
   } else if (gameState === GAME_SCREEN) {
     map.draw();
     playerList.forEach((player) => {

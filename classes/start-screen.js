@@ -1,4 +1,4 @@
-import { font } from "../main.js";
+import { font, fartSound } from "../main.js";
 
 export default class StartScreen {
   constructor(width, height) {
@@ -33,6 +33,11 @@ export default class StartScreen {
     ) {
       return true;
     }
+    // if (this.fartSound.isLoaded()) {
+    //   // Check if sound is loaded before playing
+    //   this.fartSound.play();
+    //   return true;
+    // }
   }
 
   draw() {

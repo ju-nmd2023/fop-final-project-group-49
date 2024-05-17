@@ -1,5 +1,5 @@
 import Point from "./point.js";
-import { map, playerList } from "../main.js";
+import { map, playerList, bombImg } from "../main.js";
 import Block from "./block.js";
 
 export default class Bomb {
@@ -13,9 +13,13 @@ export default class Bomb {
 
   draw() {
     push();
-    fill(0, 0, 0);
-    translate(this.size / 2, this.size / 2);
-    circle(this.position.pixelX, this.position.pixelY, this.size);
+    image(
+      bombImg,
+      this.position.pixelX,
+      this.position.pixelY,
+      this.size,
+      this.size
+    );
     pop();
     this.update();
   }

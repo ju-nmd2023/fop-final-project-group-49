@@ -1,15 +1,11 @@
-// Sidebar in game screen with stats, time etc. 11-05-2024 (https://chat.openai.com/share/00535081-827b-4115-be17-81876288c14a)
+// Sidebar in game screen with stats, time etc. 17-05-2024 (https://chatgpt.com/c/9b3628de-bb29-413d-9405-8023e6864b7c)
 import { GAME_SCREEN, gameState, playerList } from "../main.js";
 
 export default class Sidebar {
   constructor() {
-    this.startTime = null; // Use performance.now() for start time
-    this.startTimeDuration = 3 * 60 * 1000; // 3 minutes in milliseconds
-    this.isPaused = false; // Add a variable to track pause state
-  }
-
-  startTimer() {
-    this.startTime = performance.now(); // Start the timer when the game screen is active
+    this.timelimit = 3 * 60 * 1000;
+    this.startTime = null;
+    this.countDown = this.timelimit;
   }
 
   // If pause is pressed
@@ -22,8 +18,8 @@ export default class Sidebar {
       mouseY > 900 + 25 && // Top edge of the button (using this.y)
       mouseY < 900 + 25 + 40 // Bottom edge of the button (height + offset)
     ) {
-      console.log("Click Registered!");
-      this.isPaused = !this.isPaused; // Toggle pause state
+      // console.log("Click Registered!");
+      // this.isPaused = !this.isPaused; // Toggle pause state
     }
   }
 
@@ -41,12 +37,29 @@ export default class Sidebar {
   }
 
   draw() {
+    if (this.startTime === null) {
+      this.startTime = millis(); // Initialize startTime when draw is first called
+    }
+
     this.sidebar(width / 2, 900);
 
-    // Pause the game if isPaused is true
-    if (this.isPaused) {
-      return; // Exit draw loop
+    let elapsed = millis() - this.startTime; // The elapsed time is calculated using millis() and subtracted from this.timelimit to get the remaining time.
+    this.countDown = this.timelimit - elapsed;
+
+    let minutes = int(this.countDown / 60000);
+    let seconds = int((this.countDown % 60000) / 1000);
+
+    if (this.countDown < 0) {
+      minutes = 0;
+      seconds = 0;
     }
+
+    let timeDisplay = nf(minutes, 2) + ":" + nf(seconds, 2);
+
+    textAlign(CENTER, CENTER);
+    fill(0);
+    textSize(30);
+    text(timeDisplay, width / 2 + 128, height - 57);
 
     // Display lives for player 2
     textAlign(CENTER, CENTER);
@@ -63,27 +76,11 @@ export default class Sidebar {
     text("player1", width / 2 - 215, 970);
 
     // Check if the game is in the game screen state before starting the timer
-    if (gameState === GAME_SCREEN) {
-      let elapsedTime = millis() + 2000 - this.startTime;
-      let remainingTime = this.startTimeDuration - elapsedTime;
-      let minutes = Math.floor(remainingTime / 60000);
-      let seconds = Math.floor((remainingTime % 60000) / 1000);
 
-      // Display the timer text
-      textAlign(CENTER, CENTER);
-      fill(0);
-      textSize(30);
-      text(
-        minutes + ":" + (seconds < 10 ? "0" : "") + seconds,
-        width / 2 + 128,
-        height - 57,
-      );
-
-      // Check if the timer has reached zero
-      if (remainingTime <= 0) {
-        // Timer has ended
-        noLoop(); // Stop the draw loop
-      }
-    }
+    // text(
+    //   minutes + ":" + (seconds < 10 ? "0" : "") + seconds,
+    //   width / 2 + 128,
+    //   height - 57
+    // );
   }
 }
