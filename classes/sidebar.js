@@ -1,9 +1,8 @@
 // Sidebar in game screen with stats, time etc. 11-05-2024 (https://chat.openai.com/share/00535081-827b-4115-be17-81876288c14a)
 import { GAME_SCREEN, gameState, playerList } from "../main.js";
-import Player from "../classes/player.js";
 
 export default class Sidebar {
-  constructor(x, y) {
+  constructor() {
     this.startTime = null; // Use performance.now() for start time
     this.startTimeDuration = 3 * 60 * 1000; // 3 minutes in milliseconds
     this.isPaused = false; // Add a variable to track pause state
@@ -77,7 +76,7 @@ export default class Sidebar {
       text(
         minutes + ":" + (seconds < 10 ? "0" : "") + seconds,
         width / 2 + 128,
-        height - 57
+        height - 57,
       );
 
       // Check if the timer has reached zero

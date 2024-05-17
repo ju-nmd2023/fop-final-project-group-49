@@ -1,7 +1,7 @@
 import { font } from "../main.js";
 
 export default class StartScreen {
-  constructor(x, y, width, height) {
+  constructor(width, height) {
     this.width = width;
     this.height = height;
   }
