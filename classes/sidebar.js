@@ -53,13 +53,13 @@ export default class Sidebar {
     textAlign(CENTER, CENTER);
     fill(0);
     textSize(20);
-    text(playerList[1].lives, width / 2 - 115, 925);
+    text(playerList[1]?.lives, width / 2 - 115, 925);
     textSize(15);
     text("Player2", width / 2 - 115, 970);
 
     // Display lives for player 1
     textAlign(CENTER, CENTER);
-    text(playerList[0].lives, width / 2 - 215, 925);
+    text(playerList[0]?.lives, width / 2 - 215, 925);
     textSize(15);
     text("player1", width / 2 - 215, 970);
 

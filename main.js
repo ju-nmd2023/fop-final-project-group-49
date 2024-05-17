@@ -24,9 +24,11 @@ let resultScreen = new Result(0, 0, 500, 600);
 let sidebar = new Sidebar(0, 0, 600, 90);
 
 export let map = new Map(900, 780, size);
-let player1 = new Player(0, 120, 120, size);
-let player2 = new Player(1, 720, 600, size);
-export let playerList = [player1, player2];
+
+let player1;
+let player2;
+
+export let playerList;
 
 export let font;
 export let img;
@@ -129,6 +131,12 @@ async function setup() {
   frameRate(60);
   createCanvas(1000, 1000);
   background(150, 150, 150);
+
+  player1 = new Player(0, 120, 120, size);
+  player2 = new Player(1, 720, 600, size);
+
+  playerList = [player1, player2];
+
   await map.generate(1);
 
   console.log(map.grid);
@@ -145,7 +153,7 @@ function draw() {
     map.draw();
     playerList.forEach((player) => {
       // loops through players of their lives, if no lives left, change to gamestate 4.
-      if (player.lives === 0) {
+      if (player?.lives === 0) {
         gameState = 4;
         loserFound = true;
         loser = player.id;
@@ -153,7 +161,7 @@ function draw() {
       }
     });
 
-    playerList.forEach((player) => player.draw());
+    playerList.forEach((player) => player?.draw());
     sidebar.draw();
     if (sidebar.startTime === null) {
       // Start the timer only if it hasn't been started yet
@@ -161,7 +169,8 @@ function draw() {
     }
   } else if (gameState === RESULT_SCREEN) {
     resultScreen.draw();
-    resultScreen.mouseClicked(); // Call mouseClicked() within Result class
+    resultScreen.mouseClickedChangeSkin(); // Call mouseClicked() within Result class
+    resultScreen.mouseClickedPlayAgain();
   }
   // player 1 movement
   if (keyIsDown(UP_ARROW)) {
@@ -204,7 +213,15 @@ function mouseClicked(event) {
     sidebar.mouseClicked(event); // Call sidebar's click handler
     console.log("Sidebar mouseClicked() function is called.");
   } else if (gameState === RESULT_SCREEN) {
-    resultScreen.mouseClicked(event);
+    let clickedPlayAgain = resultScreen.mouseClickedPlayAgain(event);
+    let clickedChangeSKin = resultScreen.mouseClickedChangeSkin(event);
+    if (clickedPlayAgain) {
+      setup();
+      clickedPlayAgain = true ? (gameState = GAME_SCREEN) : null;
+    } else if (clickedChangeSKin) {
+      clickedChangeSKin = true ? (gameState = SKINS_SCREEN) : null;
+      setup();
+    }
   }
 }
 
