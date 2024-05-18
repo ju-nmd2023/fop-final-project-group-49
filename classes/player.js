@@ -1,7 +1,7 @@
 import Point from "./point.js";
 import Powerup from "./powerup.js";
 //import { map, speedPwrImage } from "../main.js";
-import { map, skins } from "../main.js";
+import { map, skins, bombImg } from "../main.js";
 import Bomb from "./bomb.js";
 import activeSkins from "./skins-screen.js";
 import SkinsScreen from "./skins-screen.js";
@@ -71,7 +71,7 @@ export default class Player {
       this.position.pixelX,
       this.position.pixelY,
       this.size,
-      this.size,
+      this.size
     );
 
     //const currentSkin = this.skin.activeSkin;
@@ -108,7 +108,7 @@ export default class Player {
         y * this.size,
         this.size,
         true,
-        this.id,
+        this.id
       );
     }
   }

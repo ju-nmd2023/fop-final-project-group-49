@@ -1,5 +1,5 @@
 // Sidebar in game screen with stats, time etc. 17-05-2024 (https://chatgpt.com/c/9b3628de-bb29-413d-9405-8023e6864b7c)
-import { GAME_SCREEN, gameState, playerList } from "../main.js";
+import { GAME_SCREEN, gameState, playerList, speedPwrImage } from "../main.js";
 
 export default class Sidebar {
   constructor() {
@@ -62,16 +62,19 @@ export default class Sidebar {
     text(timeDisplay, width / 2 + 128, height - 57);
 
     // Display lives for player 2
+    image(speedPwrImage.lifePwrImage, 450 - 105, 915, 45, 45);
     textAlign(CENTER, CENTER);
     fill(0);
     textSize(20);
-    text(playerList[1]?.lives, width / 2 - 115, 925);
+    text(playerList[1]?.lives, width / 2 - 110, 925);
     textSize(15);
     text("Player2", width / 2 - 115, 970);
 
     // Display lives for player 1
+    image(speedPwrImage.lifePwrImage, 450 - 205, 915, 45, 45);
     textAlign(CENTER, CENTER);
-    text(playerList[0]?.lives, width / 2 - 215, 925);
+    textSize(20);
+    text(playerList[0]?.lives, width / 2 - 210, 925);
     textSize(15);
     text("player1", width / 2 - 215, 970);
 

@@ -1,9 +1,8 @@
 import { font, GAME_SCREEN, gameState, SKINS_SCREEN, loser } from "../main.js";
+import Sidebar from "./sidebar.js";
 
 export default class Result {
-  constructor() {
-    // this.winner = Player[(0, 1)];
-  }
+  constructor() {}
 
   displayResult(x, y) {
     textSize(50);
@@ -39,25 +38,31 @@ export default class Result {
   }
 
   mouseClickedPlayAgain() {
-    // Check for Play Again button click
+    // Check for playing again click
     if (
       mouseX > width / 2 - 200 &&
       mouseX < width / 2 + 200 &&
       mouseY > 400 &&
       mouseY < 550
     ) {
-      return true; // Transition to game screen
+      // this.sidebar.resetTimer(); // Reset the timer
+      // return GAME_SCREEN; // Return the game screen state
+
+      return true;
     }
   }
+
   mouseClickedChangeSkin() {
-    // Check for Change Character button click
+    // Check for change character click
     if (
       mouseX > width / 2 - 200 &&
       mouseX < width / 2 + 200 &&
       mouseY > 600 &&
       mouseY < 750
     ) {
-      return true; // Transition to skins screen
+      // // this.sidebar.resetTimer(); // Reset the timer
+      // return SKINS_SCREEN;
+      return true;
     }
   }
 
