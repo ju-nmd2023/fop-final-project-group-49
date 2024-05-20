@@ -8,6 +8,11 @@ export default class Sidebar {
     this.countDown = this.timelimit;
   }
 
+  resetTimer() {
+    this.startTime = null;
+    this.countDown = this.timelimit;
+  }
+
   // If pause is pressed
   mouseClicked() {
     console.log("mouseX:", mouseX, "mouseY:", mouseY); // For debugging
@@ -77,13 +82,5 @@ export default class Sidebar {
     text(playerList[0]?.lives, width / 2 - 210, 925);
     textSize(15);
     text("player1", width / 2 - 215, 970);
-
-    // Check if the game is in the game screen state before starting the timer
-
-    // text(
-    //   minutes + ":" + (seconds < 10 ? "0" : "") + seconds,
-    //   width / 2 + 128,
-    //   height - 57
-    // );
   }
 }

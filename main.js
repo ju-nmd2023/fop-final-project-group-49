@@ -22,7 +22,7 @@ export let gameState = 1;
 let startScreen = new StartScreen(500, 600);
 let skinsScreen = new SkinsScreen(500, 500);
 let resultScreen = new Result(500, 600);
-let sidebar = new Sidebar(600, 90);
+export let sidebar = new Sidebar(600, 90);
 
 export let map = new Map(900, 780, size);
 
@@ -37,7 +37,9 @@ export let images;
 export let skins;
 export let speedPwrImage;
 export let bombImg;
+export let introSong;
 export let fartSound;
+export let shortFartSound;
 export let buildings;
 
 export let winner;
@@ -46,7 +48,11 @@ let loserFound = false;
 
 function preload() {
   font = loadFont("assets/AGENTORANGE.TTF");
-  // fartSound = loadSound("assets/fart-with-reverb-39675.mp3");
+  introSong = loadSound(
+    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3"
+  );
+  fartSound = loadSound("assets/fart-with-reverb-39675.mp3");
+  shortFartSound = loadSound("assets/babeldirections/fart-83471.mp3");
   speedPwrImage = {
     speedPwrImage: loadImage("assets/hotshot.png"),
     slowPwrImage: loadImage("assets/ladokU.png"),
@@ -142,6 +148,7 @@ async function setup() {
   frameRate(60);
   createCanvas(1000, 1000);
   background(150, 150, 150);
+  introSong.play();
 
   player1 = new Player(0, 120, 120, size);
   player2 = new Player(1, 720, 600, size);
@@ -174,10 +181,6 @@ function draw() {
 
     playerList.forEach((player) => player?.draw());
     sidebar.draw();
-    // if (sidebar.startTime === null) {
-    //   // Start the timer only if it hasn't been started yet
-    //   sidebar.startTimer();
-    // }
   } else if (gameState === RESULT_SCREEN) {
     resultScreen.draw();
     resultScreen.mouseClickedChangeSkin(); // Call mouseClicked() within Result class
@@ -220,6 +223,7 @@ function mouseClicked(event) {
   } else if (gameState === SKINS_SCREEN) {
     let clicked = skinsScreen.mouseClicked(event);
     clicked === true ? (gameState = GAME_SCREEN) : null;
+    introSong.stop();
   } else if (gameState === GAME_SCREEN) {
     sidebar.mouseClicked(event); // Call sidebar's click handler
     console.log("Sidebar mouseClicked() function is called.");

@@ -1,4 +1,4 @@
-import { font, fartSound } from "../main.js";
+import { font, fartSound, introSong } from "../main.js";
 
 export default class StartScreen {
   constructor(width, height) {
@@ -31,13 +31,9 @@ export default class StartScreen {
       mouseY > buttonY &&
       mouseY < buttonY + buttonHeight
     ) {
+      fartSound.play();
       return true;
     }
-    // if (this.fartSound.isLoaded()) {
-    //   // Check if sound is loaded before playing
-    //   this.fartSound.play();
-    //   return true;
-    // }
   }
 
   draw() {

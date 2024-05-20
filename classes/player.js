@@ -1,7 +1,7 @@
 import Point from "./point.js";
 import Powerup from "./powerup.js";
 //import { map, speedPwrImage } from "../main.js";
-import { map, skins, bombImg } from "../main.js";
+import { map, skins, bombImg, fartSound, shortFartSound } from "../main.js";
 import Bomb from "./bomb.js";
 import activeSkins from "./skins-screen.js";
 import SkinsScreen from "./skins-screen.js";
@@ -74,14 +74,12 @@ export default class Player {
       this.size
     );
 
-    //const currentSkin = this.skin.activeSkin;
-    //const currentImage = currentSkin[this.direction]; // Assuming direction property exists
-    //image(loadImage(currentImage), this.x, this.y, this.size, this.size);
     this.updatePickup();
   }
 
   die() {
     this.lives--;
+    fartSound.play();
   }
 
   placeBomb() {

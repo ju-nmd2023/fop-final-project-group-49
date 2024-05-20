@@ -1,5 +1,5 @@
 import Point from "./point.js";
-import { map, playerList, bombImg } from "../main.js";
+import { map, playerList, bombImg, shortFartSound } from "../main.js";
 import Block from "./block.js";
 
 export default class Bomb {
@@ -28,6 +28,7 @@ export default class Bomb {
     this.timeToExlode--;
     if (this.timeToExlode <= 0) {
       this.explode();
+      shortFartSound.play();
     }
   }
 

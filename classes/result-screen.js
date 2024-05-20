@@ -1,5 +1,11 @@
-import { font, GAME_SCREEN, gameState, SKINS_SCREEN, loser } from "../main.js";
-import Sidebar from "./sidebar.js";
+import {
+  font,
+  GAME_SCREEN,
+  gameState,
+  SKINS_SCREEN,
+  loser,
+  sidebar,
+} from "../main.js";
 
 export default class Result {
   constructor() {}
@@ -45,8 +51,8 @@ export default class Result {
       mouseY > 400 &&
       mouseY < 550
     ) {
-      // this.sidebar.resetTimer(); // Reset the timer
-      // return GAME_SCREEN; // Return the game screen state
+      sidebar.resetTimer(); // Reset the timer
+      //return GAME_SCREEN; // Return the game screen state
 
       return true;
     }
