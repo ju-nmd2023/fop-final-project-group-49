@@ -169,7 +169,6 @@ function draw() {
         gameState = 4;
         loserFound = true;
         loser = player.id;
-        console.log("the loser is: Player" + loser);
       }
     });
 
@@ -185,31 +184,33 @@ function draw() {
     resultScreen.mouseClickedPlayAgain();
   }
   // player 1 movement
-  if (keyIsDown(UP_ARROW)) {
-    player1.moveUp();
-  } else if (keyIsDown(DOWN_ARROW)) {
-    player1.moveDown();
-  } else if (keyIsDown(LEFT_ARROW)) {
-    player1.moveLeft();
-  } else if (keyIsDown(RIGHT_ARROW)) {
-    player1.moveRight();
-  }
+  if (gameState === GAME_SCREEN) {
+    if (keyIsDown(UP_ARROW)) {
+      player1.moveUp();
+    } else if (keyIsDown(DOWN_ARROW)) {
+      player1.moveDown();
+    } else if (keyIsDown(LEFT_ARROW)) {
+      player1.moveLeft();
+    } else if (keyIsDown(RIGHT_ARROW)) {
+      player1.moveRight();
+    }
 
-  if (keyIsDown(BACKSPACE)) {
-    player1.placeBomb();
-  }
-  // player 2 movement
-  if (keyIsDown(87)) {
-    player2.moveUp();
-  } else if (keyIsDown(83)) {
-    player2.moveDown();
-  } else if (keyIsDown(65)) {
-    player2.moveLeft();
-  } else if (keyIsDown(68)) {
-    player2.moveRight();
-  }
-  if (keyIsDown(32)) {
-    player2.placeBomb();
+    if (keyIsDown(BACKSPACE)) {
+      player1.placeBomb();
+    }
+    // player 2 movement
+    if (keyIsDown(87)) {
+      player2.moveUp();
+    } else if (keyIsDown(83)) {
+      player2.moveDown();
+    } else if (keyIsDown(65)) {
+      player2.moveLeft();
+    } else if (keyIsDown(68)) {
+      player2.moveRight();
+    }
+    if (keyIsDown(32)) {
+      player2.placeBomb();
+    }
   }
 }
 
@@ -220,6 +221,11 @@ function mouseClicked(event) {
     clicked === true ? (gameState = SKINS_SCREEN) : null;
   } else if (gameState === SKINS_SCREEN) {
     let clicked = skinsScreen.mouseClicked(event);
+    if (clicked === true) {
+      playerList.forEach((player, index) => {
+        player.activeSkin = skinsScreen.activeSkins[index];
+      });
+    }
     clicked === true ? (gameState = GAME_SCREEN) : null;
   } else if (gameState === GAME_SCREEN) {
     sidebar.mouseClicked(event); // Call sidebar's click handler

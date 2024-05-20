@@ -103,6 +103,7 @@ export default class Player {
     const y = this.position.getGridPosition().y;
     if (bombPlaced === false) {
       if (this.powerups.some((obj) => obj.type === "bomb")) {
+        // checks if you have powerup or not
         map.grid[x][y] = new Bomb(
           x * this.size,
           y * this.size,
@@ -155,6 +156,7 @@ export default class Player {
       this.position.x = this.position.getGridPosition().x * this.size;
       this.position.pixelX =
         this.position.getGridPosition().x * this.size + map.marginLeft;
+      // checks if you have relevant powerup and changes speed after.
       if (
         this.powerups.some((obj) => obj.type === "speed") &&
         this.powerups.some((obj) => obj.type === "slow")
