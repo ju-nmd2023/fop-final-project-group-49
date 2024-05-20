@@ -1,7 +1,7 @@
 import Point from "./point.js";
 import Powerup from "./powerup.js";
 //import { map, speedPwrImage } from "../main.js";
-import { map, skins } from "../main.js";
+import { map, skins, bombImg } from "../main.js";
 import Bomb from "./bomb.js";
 import activeSkins from "./skins-screen.js";
 import SkinsScreen from "./skins-screen.js";

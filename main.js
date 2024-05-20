@@ -27,8 +27,6 @@ export let map = new Map(900, 780, size);
 
 export let player1;
 export let player2;
-// player1.activeSkin = 0;
-// player2.activeSkin = 1;
 
 export let playerList;
 
@@ -177,10 +175,10 @@ function draw() {
 
     playerList.forEach((player) => player?.draw());
     sidebar.draw();
-    if (sidebar.startTime === null) {
-      // Start the timer only if it hasn't been started yet
-      sidebar.startTimer();
-    }
+    // if (sidebar.startTime === null) {
+    //   // Start the timer only if it hasn't been started yet
+    //   sidebar.startTimer();
+    // }
   } else if (gameState === RESULT_SCREEN) {
     resultScreen.draw();
     resultScreen.mouseClickedChangeSkin(); // Call mouseClicked() within Result class
