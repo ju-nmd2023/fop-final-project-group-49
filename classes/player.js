@@ -71,7 +71,7 @@ export default class Player {
       this.position.pixelX,
       this.position.pixelY,
       this.size,
-      this.size,
+      this.size
     );
 
     //const currentSkin = this.skin.activeSkin;
@@ -102,14 +102,24 @@ export default class Player {
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
     if (bombPlaced === false) {
-      // If no bomb is placed, you can place a bomb, else you cant
-      map.grid[x][y] = new Bomb(
-        x * this.size,
-        y * this.size,
-        this.size,
-        true,
-        this.id,
-      );
+      if (this.powerups.some((obj) => obj.type === "bomb")) {
+        map.grid[x][y] = new Bomb(
+          x * this.size,
+          y * this.size,
+          this.size,
+          true,
+          this.id
+        );
+      } else {
+        // If no bomb is placed, you can place a bomb, else you cant
+        map.grid[x][y] = new Bomb(
+          x * this.size,
+          y * this.size,
+          this.size,
+          false,
+          this.id
+        );
+      }
     }
   }
 

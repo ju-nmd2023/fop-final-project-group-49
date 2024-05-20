@@ -4,7 +4,6 @@ import StartScreen from "./classes/start-screen.js";
 import SkinsScreen from "./classes/skins-screen.js";
 import Result from "./classes/result-screen.js";
 import Sidebar from "./classes/sidebar.js";
-import Skin from "./classes/skin.js";
 
 // Create a new player and map
 // The player (x, y, size)
@@ -41,6 +40,7 @@ export let speedPwrImage;
 export let bombImg;
 export let fartSound;
 export let buildings;
+export let logo;
 
 export let winner;
 export let loser;
@@ -57,6 +57,7 @@ function preload() {
   };
 
   bombImg = loadImage("assets/Bomb.png");
+  logo = loadImage("assets/BABEL-BOMB.png");
 
   images = {
     indestructible: [
