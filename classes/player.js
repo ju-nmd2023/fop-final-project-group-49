@@ -100,14 +100,25 @@ export default class Player {
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
     if (bombPlaced === false) {
-      // If no bomb is placed, you can place a bomb, else you cant
-      map.grid[x][y] = new Bomb(
-        x * this.size,
-        y * this.size,
-        this.size,
-        true,
-        this.id
-      );
+      if (this.powerups.some((obj) => obj.type === "bomb")) {
+        // checks if you have powerup or not
+        map.grid[x][y] = new Bomb(
+          x * this.size,
+          y * this.size,
+          this.size,
+          true,
+          this.id
+        );
+      } else {
+        // If no bomb is placed, you can place a bomb, else you cant
+        map.grid[x][y] = new Bomb(
+          x * this.size,
+          y * this.size,
+          this.size,
+          false,
+          this.id
+        );
+      }
     }
   }
 
@@ -143,6 +154,7 @@ export default class Player {
       this.position.x = this.position.getGridPosition().x * this.size;
       this.position.pixelX =
         this.position.getGridPosition().x * this.size + map.marginLeft;
+      // checks if you have relevant powerup and changes speed after.
       if (
         this.powerups.some((obj) => obj.type === "speed") &&
         this.powerups.some((obj) => obj.type === "slow")

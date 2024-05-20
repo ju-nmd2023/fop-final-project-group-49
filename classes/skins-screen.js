@@ -16,8 +16,8 @@ export default class SkinsScreen {
 
   // Setup keyboard event listeners
   setupKeyboardEvents() {
-    if (gameState === 2) {
-      document.addEventListener("keydown", (event) => {
+    document.addEventListener("keydown", (event) => {
+      if (gameState === 2) {
         switch (event.key) {
           // Player One character selection
           case "ArrowLeft":
@@ -46,8 +46,8 @@ export default class SkinsScreen {
             this.changeActiveSkin(1, 3); // Move down for player two
             break;
         }
-      });
-    }
+      }
+    });
   }
 
   // Change active skin index based on arrow key presses
@@ -106,6 +106,7 @@ export default class SkinsScreen {
           fill(255, 197, 4); // Yellow color for highlighted skin
           rect(xPosition, yPosition, 300, 300, 20); // Draw highlighted box
           image(
+            //draws characters
             images.screenSkins[i],
             xPosition + 10,
             yPosition - 50,

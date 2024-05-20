@@ -1,4 +1,4 @@
-import { font, fartSound, introSong } from "../main.js";
+import { font, fartSound, introSong, logo } from "../main.js";
 
 export default class StartScreen {
   constructor(width, height) {
@@ -15,13 +15,13 @@ export default class StartScreen {
     textSize(50);
     textAlign(CENTER);
     textFont(font);
-    text("start", x, 400, 500, h);
+    text("start", x, y + 110, 500, h);
     pop();
   }
 
   mouseClicked() {
     const buttonX = this.width / 2; // Center the button horizontally
-    const buttonY = this.height / 2; // Center the button vertically
+    const buttonY = this.height / 2 + 200; // Center the button vertically
     const buttonWidth = 500;
     const buttonHeight = 200;
 
@@ -38,6 +38,7 @@ export default class StartScreen {
 
   draw() {
     background(173, 100, 36);
-    this.playButton(this.width / 2, this.height / 2, 250, 80);
+    this.playButton(this.width / 2, this.height / 2 + 200, 250, 80);
+    image(logo, this.width / 2 - 100, this.height / 2 - 100, 700, 280);
   }
 }
