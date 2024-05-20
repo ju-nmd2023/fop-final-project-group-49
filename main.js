@@ -149,7 +149,7 @@ async function setup() {
   frameRate(60);
   createCanvas(1000, 1000);
   background(150, 150, 150);
-  introSong.play();
+  introSong.loop();
 
   player1 = new Player(0, 120, 120, size);
   player2 = new Player(1, 720, 600, size);
@@ -240,8 +240,10 @@ function mouseClicked(event) {
     if (clickedPlayAgain) {
       setup();
       clickedPlayAgain = true ? (gameState = GAME_SCREEN) : null;
+      introSong.stop();
     } else if (clickedChangeSKin) {
       clickedChangeSKin = true ? (gameState = SKINS_SCREEN) : null;
+      introSong.stop();
       setup();
     }
   }

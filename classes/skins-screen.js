@@ -1,4 +1,4 @@
-import { font, images, gameState } from "../main.js";
+import { font, images, gameState, shortFartSound } from "../main.js";
 
 export default class SkinsScreen {
   constructor(width, height) {
@@ -22,28 +22,36 @@ export default class SkinsScreen {
           // Player One character selection
           case "ArrowLeft":
             this.changeActiveSkin(0, -1); // Move left for player one
+            shortFartSound.play();
             break;
           case "ArrowRight":
             this.changeActiveSkin(0, 1); // Move right for player one
+            shortFartSound.play();
             break;
           case "ArrowUp":
             this.changeActiveSkin(0, -3); // Move up for player one
+            shortFartSound.play();
             break;
           case "ArrowDown":
             this.changeActiveSkin(0, 3); // Move down for player one
+            shortFartSound.play();
             break;
           // Player Two character selection
           case "a":
             this.changeActiveSkin(1, -1); // Move left for player two
+            shortFartSound.play();
             break;
           case "d":
             this.changeActiveSkin(1, 1); // Move right for player two
+            shortFartSound.play();
             break;
           case "w":
             this.changeActiveSkin(1, -3); // Move up for player two
+            shortFartSound.play();
             break;
           case "s":
             this.changeActiveSkin(1, 3); // Move down for player two
+            shortFartSound.play();
             break;
         }
       }
