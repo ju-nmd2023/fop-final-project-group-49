@@ -1,6 +1,5 @@
 import Block from "./block.js";
-import Bomb from "./bomb.js";
-import { images, buildings } from "../main.js";
+import { buildings } from "../main.js";
 
 export default class Map {
   constructor(width, height, gridSize) {
@@ -10,7 +9,7 @@ export default class Map {
     this.marginLeft = (1000 - width) / 2; // The left margin of the map. To center the map when drawn
     this.marginTop = (1000 - height) / 2; // The top margin of the map. To center the map when drawn
     this.grid = [];
-    this.powerupTypes = ["bomb", "slow", "speed", "life"];
+    this.powerupTypes = ["bomb", "slow", "speed", "life", "extrabomb"];
     this.block;
     this.centerBuilding = 0;
   }
@@ -24,7 +23,7 @@ export default class Map {
         fill(200, 200, 200).rect(
           this.marginLeft + x,
           this.marginTop + y,
-          this.gridSize
+          this.gridSize,
         );
       }
     }
@@ -41,14 +40,14 @@ export default class Map {
       this.width / 2 + this.marginLeft - 90,
       this.height / 2 + this.marginTop - 90,
       180,
-      180
+      180,
     );
     image(
       buildings[this.centerBuilding],
       this.width / 2 + this.marginLeft - 90,
       this.height / 2 + this.marginTop - 90,
       180,
-      180
+      180,
     );
   }
 
@@ -67,7 +66,7 @@ export default class Map {
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              true
+              true,
             );
           } else if (map[xIndex][yIndex] === 2) {
             // If the block is clear spawn point
@@ -78,7 +77,7 @@ export default class Map {
               xIndex * this.gridSize,
               yIndex * this.gridSize,
               this.gridSize,
-              false
+              false,
             );
           } else {
             this.grid[xIndex][yIndex] = null;
@@ -91,12 +90,10 @@ export default class Map {
         xRow.forEach((yRow) => {
           if (yRow != undefined && !yRow.indestructible) {
             // If the block is destructible generate a powerup
-            this.powerupTypes.forEach((powerupType) => {
-              if (Math.random() < 1 / this.powerupTypes.length) {
-                yRow.powerup = powerupType;
-                return;
-              }
-            });
+            yRow.powerup =
+              this.powerupTypes[
+                Math.floor(Math.random() * this.powerupTypes.length)
+              ];
           }
         });
       });

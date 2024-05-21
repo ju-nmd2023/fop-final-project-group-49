@@ -39,8 +39,10 @@ export let bombImg;
 export let introSong;
 export let fartSound;
 export let shortFartSound;
+export let battleSound;
 export let buildings;
 export let logo;
+let songPlaying = false;
 
 export let winner;
 export let loser;
@@ -49,10 +51,11 @@ let loserFound = false;
 function preload() {
   font = loadFont("assets/AGENTORANGE.TTF");
   introSong = loadSound(
-    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3"
+    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3",
   );
   fartSound = loadSound("assets/fart-with-reverb-39675.mp3");
   shortFartSound = loadSound("assets/babeldirections/fart-83471.mp3");
+  battleSound = loadSound("assets/battle.mp3");
   speedPwrImage = {
     speedPwrImage: loadImage("assets/hotshot.png"),
     slowPwrImage: loadImage("assets/ladokU.png"),
@@ -150,6 +153,8 @@ async function setup() {
   createCanvas(1000, 1000);
   background(150, 150, 150);
   introSong.loop();
+  battleSound.stop();
+  songPlaying = false;
 
   player1 = new Player(0, 120, 120, size);
   player2 = new Player(1, 720, 600, size);
@@ -169,6 +174,10 @@ function draw() {
   } else if (gameState === SKINS_SCREEN) {
     skinsScreen.draw();
   } else if (gameState === GAME_SCREEN) {
+    if (songPlaying === false) {
+      battleSound.loop();
+      songPlaying = true;
+    }
     map.draw();
     playerList.forEach((player) => {
       // loops through players of their lives, if no lives left, change to gamestate 4.
