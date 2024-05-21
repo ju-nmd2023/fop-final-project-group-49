@@ -1,6 +1,7 @@
 import Point from "./point.js";
 import { map, playerList, bombImg, shortFartSound } from "../main.js";
 import Block from "./block.js";
+import Powerup from "./powerup.js";
 
 export default class Bomb {
   constructor(x, y, size, powerBomb, playerId) {
@@ -9,6 +10,8 @@ export default class Bomb {
     this.timeToExlode = 180;
     this.powerBomb = powerBomb;
     this.playerId = playerId;
+    this.thrown = false;
+    this.throwDirection = null;
   }
 
   draw() {
@@ -29,6 +32,37 @@ export default class Bomb {
     if (this.timeToExlode <= 0) {
       this.explode();
       shortFartSound.play();
+    }
+
+    if (this.thrown === true) {
+      this.bombCollision(this.throwDirection.x, this.throwDirection.y);
+      this.position.x -= this.throwDirection.x;
+      this.position.pixelX -= this.throwDirection.x;
+      this.position.x -= this.throwDirection.y;
+      this.position.pixelY -= this.throwDirection.y;
+    }
+  }
+  bombCollision(throwDirectionX, throwDirectionY) {
+    let bombGridPosition = this.position.getGridPosition();
+    let nextGrid =
+      map.grid[bombGridPosition.x + throwDirectionX]?.[
+        bombGridPosition.y + throwDirectionY
+      ];
+    let bombPosition = {
+      x: this.position.x / this.size,
+      y: this.position.y / this.size,
+    };
+    if (
+      nextGrid === null ||
+      nextGrid instanceof Powerup ||
+      (bombPosition.x > bombGridPosition.x && this.direction === "left") ||
+      (bombPosition.x < bombGridPosition.x && this.direction === "right") ||
+      (bombPosition.y > bombGridPosition.y && this.direction === "up") ||
+      (bombPosition.y < bombGridPosition.y && this.direction === "down")
+    ) {
+      return true;
+    } else if (nextGrid instanceof Block) {
+      this.explode();
     }
   }
 
@@ -110,6 +144,15 @@ export default class Bomb {
           map.grid[newPosition.x][newPosition.y].destroy();
         }
       }
+    }
+  }
+  throw(throwDirection) {
+    if (this.thrown === false) {
+      this.thrown = true;
+      this.throwDirection = throwDirection;
+      map.grid[this.position.getGridPosition().x][
+        this.position.getGridPosition().y
+      ] = null;
     }
   }
 }

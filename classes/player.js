@@ -248,6 +248,16 @@ export default class Player {
       (playerPosition.y < playerGridPosition.y && this.direction === "down")
     ) {
       return true;
+    } else if (nextGrid instanceof Bomb) {
+      let throwDirection = {
+        x:
+          this.position.getGridPosition().x -
+          nextGrid.position.getGridPosition().x,
+        y:
+          this.position.getGridPosition().y -
+          nextGrid.position.getGridPosition().y,
+      };
+      nextGrid.throw(throwDirection);
     } else {
       return false;
     }

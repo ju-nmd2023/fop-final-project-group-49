@@ -162,57 +162,63 @@ async function setup() {
 }
 
 function draw() {
-  clear();
+  if (sidebar.isPaused === true) {
+    rect();
+    textSize(80);
+    text("PAUSED", width / 2 - 150, height / 2 - 100, 300, 200);
+  } else {
+    clear();
 
-  if (gameState === START_SCREEN) {
-    startScreen.draw();
-  } else if (gameState === SKINS_SCREEN) {
-    skinsScreen.draw();
-  } else if (gameState === GAME_SCREEN) {
-    map.draw();
-    playerList.forEach((player) => {
-      // loops through players of their lives, if no lives left, change to gamestate 4.
-      if (player?.lives === 0) {
-        gameState = 4;
-        loserFound = true;
-        loser = player.id;
+    if (gameState === START_SCREEN) {
+      startScreen.draw();
+    } else if (gameState === SKINS_SCREEN) {
+      skinsScreen.draw();
+    } else if (gameState === GAME_SCREEN) {
+      map.draw();
+      playerList.forEach((player) => {
+        // loops through players of their lives, if no lives left, change to gamestate 4.
+        if (player?.lives === 0) {
+          gameState = 4;
+          loserFound = true;
+          loser = player.id;
+        }
+      });
+
+      playerList.forEach((player) => player?.draw());
+      sidebar.draw();
+    } else if (gameState === RESULT_SCREEN) {
+      resultScreen.draw();
+      resultScreen.mouseClickedChangeSkin(); // Call mouseClicked() within Result class
+      resultScreen.mouseClickedPlayAgain();
+    }
+    // player 1 movement
+    if (gameState === GAME_SCREEN) {
+      if (keyIsDown(UP_ARROW)) {
+        player1.moveUp();
+      } else if (keyIsDown(DOWN_ARROW)) {
+        player1.moveDown();
+      } else if (keyIsDown(LEFT_ARROW)) {
+        player1.moveLeft();
+      } else if (keyIsDown(RIGHT_ARROW)) {
+        player1.moveRight();
       }
-    });
 
-    playerList.forEach((player) => player?.draw());
-    sidebar.draw();
-  } else if (gameState === RESULT_SCREEN) {
-    resultScreen.draw();
-    resultScreen.mouseClickedChangeSkin(); // Call mouseClicked() within Result class
-    resultScreen.mouseClickedPlayAgain();
-  }
-  // player 1 movement
-  if (gameState === GAME_SCREEN) {
-    if (keyIsDown(UP_ARROW)) {
-      player1.moveUp();
-    } else if (keyIsDown(DOWN_ARROW)) {
-      player1.moveDown();
-    } else if (keyIsDown(LEFT_ARROW)) {
-      player1.moveLeft();
-    } else if (keyIsDown(RIGHT_ARROW)) {
-      player1.moveRight();
-    }
-
-    if (keyIsDown(BACKSPACE)) {
-      player1.placeBomb();
-    }
-    // player 2 movement
-    if (keyIsDown(87)) {
-      player2.moveUp();
-    } else if (keyIsDown(83)) {
-      player2.moveDown();
-    } else if (keyIsDown(65)) {
-      player2.moveLeft();
-    } else if (keyIsDown(68)) {
-      player2.moveRight();
-    }
-    if (keyIsDown(32)) {
-      player2.placeBomb();
+      if (keyIsDown(BACKSPACE)) {
+        player1.placeBomb();
+      }
+      // player 2 movement
+      if (keyIsDown(87)) {
+        player2.moveUp();
+      } else if (keyIsDown(83)) {
+        player2.moveDown();
+      } else if (keyIsDown(65)) {
+        player2.moveLeft();
+      } else if (keyIsDown(68)) {
+        player2.moveRight();
+      }
+      if (keyIsDown(32)) {
+        player2.placeBomb();
+      }
     }
   }
 }

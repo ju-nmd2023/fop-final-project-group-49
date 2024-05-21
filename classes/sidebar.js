@@ -6,6 +6,9 @@ export default class Sidebar {
     this.timelimit = 3 * 60 * 1000;
     this.startTime = null;
     this.countDown = this.timelimit;
+    this.pauseTime = null;
+    this.resumeTime = null;
+    this.isPaused = false;
   }
 
   resetTimer() {
@@ -23,8 +26,14 @@ export default class Sidebar {
       mouseY > 900 + 25 && // Top edge of the button (using this.y)
       mouseY < 900 + 25 + 40 // Bottom edge of the button (height + offset)
     ) {
-      // console.log("Click Registered!");
-      // this.isPaused = !this.isPaused; // Toggle pause state
+      this.isPaused = !this.isPaused; // Toggle pause state
+      let date = new Date();
+      if (this.isPaused === true) {
+        this.pauseTime = date.getTime();
+      } else {
+        this.resumeTime = date.getTime();
+        this.startTime += this.resumeTime - this.pauseTime;
+      }
     }
   }
 
@@ -33,7 +42,7 @@ export default class Sidebar {
     rect(x - 300, y, 600, 90, 20);
     rect(x - 150, y + 7, 75, 45, 10);
     rect(x - 250, y + 7, 75, 45, 10);
-    rect(width / 2 + 70, y + 15, 110, 60, 10);
+    rect(width / 2 + 60, y + 15, 130, 60, 10);
     // Pause button
     rect(width / 2 - 20, y + 25, 40, 40, 5);
     fill(244, 217, 17);
@@ -42,14 +51,20 @@ export default class Sidebar {
   }
 
   draw() {
-    if (this.startTime === null) {
-      this.startTime = millis(); // Initialize startTime when draw is first called
+    let date = new Date();
+
+    this.sidebar(width / 2, height / 2 + 400);
+
+    if (this.startTime == null) {
+      this.startTime = date.getTime();
+      this.isPaused = false;
     }
 
-    this.sidebar(width / 2, 900);
+    let elapsedTime = date.getTime() - this.startTime;
 
-    let elapsed = millis() - this.startTime; // The elapsed time is calculated using millis() and subtracted from this.timelimit to get the remaining time.
-    this.countDown = this.timelimit - elapsed;
+    if (this.isPaused === false) {
+      this.countDown = this.timelimit - elapsedTime;
+    }
 
     let minutes = int(this.countDown / 60000);
     let seconds = int((this.countDown % 60000) / 1000);
