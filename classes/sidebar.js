@@ -1,5 +1,10 @@
 // Sidebar in game screen with stats, time etc. 17-05-2024 (https://chatgpt.com/c/9b3628de-bb29-413d-9405-8023e6864b7c)
-import { playerList, speedPwrImage } from "../main.js";
+import {
+  RESULT_SCREEN,
+  gameState,
+  playerList,
+  speedPwrImage,
+} from "../main.js";
 
 export default class Sidebar {
   constructor() {
