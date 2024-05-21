@@ -1,6 +1,5 @@
 import Block from "./block.js";
-import Bomb from "./bomb.js";
-import { images, buildings } from "../main.js";
+import { buildings } from "../main.js";
 
 export default class Map {
   constructor(width, height, gridSize) {
@@ -37,12 +36,14 @@ export default class Map {
         }
       });
     });
+    // Rect under img
     rect(
       this.width / 2 + this.marginLeft - 90,
       this.height / 2 + this.marginTop - 90,
       180,
       180
     );
+    // Drawing the buildning in the middle
     image(
       buildings[this.centerBuilding],
       this.width / 2 + this.marginLeft - 90,
@@ -55,7 +56,7 @@ export default class Map {
   async generate(i) {
     loadJSON(`../maps/map${i}.json`, (data) => {
       let map = data;
-      this.centerBuilding = Math.floor(Math.random() * buildings.length);
+      this.centerBuilding = Math.floor(Math.random() * buildings.length); // Randomizes placement of buidlnings
       // This creates all blocks in the grid
       for (let xIndex = 0; xIndex < map.length; xIndex++) {
         //loops through the map in x and then after y

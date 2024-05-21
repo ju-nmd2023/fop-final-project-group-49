@@ -1,46 +1,42 @@
-import {
-  font,
-  GAME_SCREEN,
-  gameState,
-  SKINS_SCREEN,
-  loser,
-  sidebar,
-} from "../main.js";
+import { font, loser, sidebar } from "../main.js";
 
 export default class Result {
-  constructor() {}
-
+  // Result screen
   displayResult(x, y) {
     textSize(50);
     textAlign(CENTER);
     textFont(font);
     if (loser === 0) {
-      text("Player 2 wins!", x, y - 80); //player 0 is now player 1
+      text("Player 2 wins!", x, y - 40); //player 0 is now player 1
     } else {
-      text("Player 1 wins!", x, y - 80); //player 1 is now player 2
+      text("Player 1 wins!", x, y - 40); //player 1 is now player 2
     }
   }
 
+  // button 1
   playAgainButton(x, y) {
-    fill(209, 147, 31); // Orange button color
-    rect(x - 200, y, 400, 150, 20); // Adjust button dimensions if needed
-
-    fill(20, 20, 20); // Text color
+    strokeWeight(2);
+    fill(209, 147, 31);
+    rect(x - 200, y, 400, 150, 20);
+    fill(20, 20, 20);
+    strokeWeight(1);
     textSize(30);
     textAlign(CENTER);
     textFont(font);
-    text("Play Again", x, y + 80);
+    text("Play Again", x, y + 75);
   }
 
+  // button 2
   changeCharacterButton(x, y) {
+    strokeWeight(2);
     fill(209, 147, 31);
-    rect(x - 200, y, 400, 150, 20); // Adjust button dimensions if needed
-
-    fill(20, 20, 20); // Text color
+    rect(x - 200, y, 400, 150, 20);
+    fill(20, 20, 20);
+    strokeWeight(1);
     textSize(27);
     textAlign(CENTER);
     textFont(font);
-    text("Change Character", x, y + 80);
+    text("Change Character", x, y + 75);
   }
 
   mouseClickedPlayAgain() {
@@ -52,9 +48,7 @@ export default class Result {
       mouseY < 550
     ) {
       sidebar.resetTimer(); // Reset the timer
-      //return GAME_SCREEN; // Return the game screen state
-
-      return true;
+      return true; // Returning from main screen
     }
   }
 
@@ -66,8 +60,6 @@ export default class Result {
       mouseY > 600 &&
       mouseY < 750
     ) {
-      // // this.sidebar.resetTimer(); // Reset the timer
-      // return SKINS_SCREEN;
       return true;
     }
   }
