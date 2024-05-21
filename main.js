@@ -49,7 +49,7 @@ function preload() {
   // Loading all fonts, pictures, sounds etc
   font = loadFont("assets/AGENTORANGE.TTF");
   introSong = loadSound(
-    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3",
+    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3"
   );
   fartSound = loadSound("assets/fart-with-reverb-39675.mp3");
   shortFartSound = loadSound("assets/babeldirections/fart-83471.mp3");
@@ -171,7 +171,7 @@ function draw() {
     text("PAUSED", width / 2 - 150, height / 2 - 100, 300, 200);
   } else {
     clear();
-
+  }
   // Game state logic
   if (gameState === START_SCREEN) {
     startScreen.draw();
