@@ -1,10 +1,8 @@
 import Point from "./point.js";
 import Powerup from "./powerup.js";
 //import { map, speedPwrImage } from "../main.js";
-import { map, skins, bombImg, fartSound, shortFartSound } from "../main.js";
+import { map, skins, fartSound } from "../main.js";
 import Bomb from "./bomb.js";
-import activeSkins from "./skins-screen.js";
-import SkinsScreen from "./skins-screen.js";
 
 // ChosenSkinIndex represents the players skin through entire game
 // setChosenSkin provides a controlled way to update the chosen skin
@@ -71,7 +69,7 @@ export default class Player {
       this.position.pixelX,
       this.position.pixelY,
       this.size,
-      this.size
+      this.size,
     );
 
     this.updatePickup();
@@ -83,7 +81,7 @@ export default class Player {
   }
 
   placeBomb() {
-    let bombPlaced = false;
+    let placedBombs = 0;
 
     map.grid.forEach((xRow) => {
       // loops through grid map for bombs
@@ -91,7 +89,7 @@ export default class Player {
         if (yRow instanceof Bomb) {
           // checks if bomb has same id as player
           if (yRow.playerId === this.id) {
-            bombPlaced = true;
+            placedBombs += 1;
           }
         }
       });
@@ -99,7 +97,11 @@ export default class Player {
 
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
-    if (bombPlaced === false) {
+
+    if (
+      placedBombs <
+      this.powerups.filter((pwrUp) => pwrUp.type === "extrabomb").length + 1
+    ) {
       if (this.powerups.some((obj) => obj.type === "bomb")) {
         // checks if you have powerup or not
         map.grid[x][y] = new Bomb(
@@ -107,7 +109,7 @@ export default class Player {
           y * this.size,
           this.size,
           true,
-          this.id
+          this.id,
         );
       } else {
         // If no bomb is placed, you can place a bomb, else you cant
@@ -116,7 +118,7 @@ export default class Player {
           y * this.size,
           this.size,
           false,
-          this.id
+          this.id,
         );
       }
     }

@@ -16,12 +16,13 @@ export default class Bomb {
 
   draw() {
     push();
+    // Drawing image of bomb
     image(
       bombImg,
       this.position.pixelX,
       this.position.pixelY,
       this.size,
-      this.size
+      this.size,
     );
     pop();
     this.update();
@@ -129,7 +130,13 @@ export default class Bomb {
           player.position.getGridPosition().x == newPosition.x &&
           player.position.getGridPosition().y == newPosition.y
         ) {
-          player.die();
+          if (middlePosition) {
+            if (!map.grid[middlePosition.x][middlePosition.y]?.indestructible) {
+              player.die();
+            }
+          } else {
+            player.die();
+          }
         }
       });
 

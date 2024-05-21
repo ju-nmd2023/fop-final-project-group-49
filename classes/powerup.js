@@ -5,15 +5,15 @@ export default class Powerup {
   constructor(x, y, size, type) {
     this.position = new Point(x, y, size);
     this.size = size;
-    this.type = type; // What type of powerup is it?
+    this.type = type; // What type of powerup
   }
 
   draw() {
     push();
     fill(0, 255, 0);
     translate(this.size / 2, this.size / 2);
+    // Drawings for different powerups
     if (this.type === "speed") {
-      // How to position and display imgs from gpt 14-05-2024 (https://chat.openai.com/share/a7f83acd-c2b8-4477-8953-5c8224804cc4)
       image(
         speedPwrImage.speedPwrImage,
         this.position.pixelX - this.size / 2,
@@ -45,8 +45,6 @@ export default class Powerup {
         this.size,
         this.size
       );
-    } else {
-      circle(this.position.pixelX, this.position.pixelY, this.size);
     }
     pop();
   }
@@ -54,10 +52,6 @@ export default class Powerup {
   pickup() {
     let gridposition = this.position.getGridPosition(); //removes the powerup from the map
     map.grid[gridposition.x][gridposition.y] = null;
-    return { type: this.type, duration: 900 }; // lägga till powerup i spelarens lista på powerups
-
-    // TODO: Implement pickup logic
+    return { type: this.type, duration: 900 }; // adds powerup i players list
   }
 }
-
-// i draw if type = speed visa denna bild
