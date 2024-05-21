@@ -9,10 +9,11 @@ export default class Block {
     this.indestructible = indestructible; // Is the block indestructible?
     this.powerup = undefined; // The powerup that is inside the block
     this.imageIndex = Math.floor(
+      // Randomizing placement of blocks for destructible and indestructible
       Math.random() *
         (this.indestructible
           ? images.indestructible.length
-          : images.destructible.length),
+          : images.destructible.length)
     );
   }
 
@@ -23,7 +24,7 @@ export default class Block {
         this.position.pixelX,
         this.position.pixelY,
         this.size,
-        this.size,
+        this.size
       );
     } else {
       image(
@@ -31,7 +32,7 @@ export default class Block {
         this.position.pixelX,
         this.position.pixelY,
         this.size,
-        this.size,
+        this.size
       );
     }
   }
@@ -44,7 +45,7 @@ export default class Block {
           this.position.x,
           this.position.y,
           this.size,
-          this.powerup,
+          this.powerup
         );
       } else {
         map.grid[gridPosition.x][gridPosition.y] = null;

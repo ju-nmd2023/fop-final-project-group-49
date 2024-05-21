@@ -1,13 +1,14 @@
 // Sidebar in game screen with stats, time etc. 17-05-2024 (https://chatgpt.com/c/9b3628de-bb29-413d-9405-8023e6864b7c)
-import { GAME_SCREEN, gameState, playerList, speedPwrImage } from "../main.js";
+import { playerList, speedPwrImage } from "../main.js";
 
 export default class Sidebar {
   constructor() {
-    this.timelimit = 3 * 60 * 1000;
+    this.timelimit = 3 * 60 * 1000; // 3 minutes
     this.startTime = null;
     this.countDown = this.timelimit;
   }
 
+  // Reseting the time, used for restarting game
   resetTimer() {
     this.startTime = null;
     this.countDown = this.timelimit;
@@ -15,8 +16,6 @@ export default class Sidebar {
 
   // If pause is pressed
   mouseClicked() {
-    console.log("mouseX:", mouseX, "mouseY:", mouseY); // For debugging
-
     if (
       mouseX > width / 2 - 20 && // Left edge of the button
       mouseX < width / 2 + 20 && // Right edge of the button (width + offset)
@@ -28,17 +27,22 @@ export default class Sidebar {
     }
   }
 
+  // Sidebar with all boxes
   sidebar(x, y) {
-    fill(209, 147, 31);
+    push();
+    strokeWeight(1.5);
+    fill(201, 147, 31);
     rect(x - 300, y, 600, 90, 20);
+    fill(179, 121, 55);
     rect(x - 150, y + 7, 75, 45, 10);
     rect(x - 250, y + 7, 75, 45, 10);
     rect(width / 2 + 70, y + 15, 110, 60, 10);
     // Pause button
     rect(width / 2 - 20, y + 25, 40, 40, 5);
-    fill(244, 217, 17);
+    fill(248, 178, 27);
     rect(width / 2 - 13, y + 32, 10, 27, 2);
     rect(width / 2 + 2, y + 32, 10, 27, 2);
+    pop();
   }
 
   draw() {
@@ -59,12 +63,12 @@ export default class Sidebar {
       seconds = 0;
     }
 
-    let timeDisplay = nf(minutes, 2) + ":" + nf(seconds, 2);
-
+    let timeDisplay = nf(minutes, 2) + ":" + nf(seconds, 2); // nf is used for minutes and seconds, 00:00
+    strokeWeight(1);
     textAlign(CENTER, CENTER);
     fill(0);
     textSize(30);
-    text(timeDisplay, width / 2 + 128, height - 57);
+    text(timeDisplay, width / 2 + 128, height - 57); // Displaying time
 
     // Display lives for player 2
     image(speedPwrImage.lifePwrImage, 450 - 105, 915, 45, 45);

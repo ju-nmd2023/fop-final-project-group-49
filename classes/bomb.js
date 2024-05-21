@@ -13,6 +13,7 @@ export default class Bomb {
 
   draw() {
     push();
+    // Drawing image of bomb
     image(
       bombImg,
       this.position.pixelX,
