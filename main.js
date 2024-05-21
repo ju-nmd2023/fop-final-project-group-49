@@ -194,6 +194,9 @@ function draw() {
     });
     playerList.forEach((player) => player?.draw());
     sidebar.draw();
+    if (sidebar.countDown <= 0) {
+      gameState = 4;
+    }
   } else if (gameState === RESULT_SCREEN) {
     resultScreen.draw();
     resultScreen.mouseClickedChangeSkin(); // Call mouseClicked() within Result class
