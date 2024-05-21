@@ -15,7 +15,6 @@ export default class Bomb {
   }
 
   draw() {
-    push();
     // Drawing image of bomb
     image(
       bombImg,
@@ -24,44 +23,48 @@ export default class Bomb {
       this.size,
       this.size,
     );
-    pop();
     this.update();
   }
 
   update() {
-    this.timeToExlode--;
+    if (this.thrown === true) {
+      let speed = 4;
+      this.bombCollision(this.throwDirection.x, this.throwDirection.y);
+      this.position.x -= this.throwDirection.x * speed;
+      this.position.pixelX -= this.throwDirection.x * speed;
+      this.position.y -= this.throwDirection.y * speed;
+      this.position.pixelY -= this.throwDirection.y * speed;
+    } else {
+      this.timeToExlode--;
+    }
+
     if (this.timeToExlode <= 0) {
       this.explode();
       shortFartSound.play();
     }
-
-    if (this.thrown === true) {
-      this.bombCollision(this.throwDirection.x, this.throwDirection.y);
-      this.position.x -= this.throwDirection.x;
-      this.position.pixelX -= this.throwDirection.x;
-      this.position.x -= this.throwDirection.y;
-      this.position.pixelY -= this.throwDirection.y;
-    }
   }
+
   bombCollision(throwDirectionX, throwDirectionY) {
     let bombGridPosition = this.position.getGridPosition();
     let nextGrid =
-      map.grid[bombGridPosition.x + throwDirectionX]?.[
-        bombGridPosition.y + throwDirectionY
+      map.grid[bombGridPosition.x - throwDirectionX]?.[
+        bombGridPosition.y - throwDirectionY
       ];
+
     let bombPosition = {
       x: this.position.x / this.size,
       y: this.position.y / this.size,
     };
+
     if (
       nextGrid === null ||
       nextGrid instanceof Powerup ||
-      (bombPosition.x > bombGridPosition.x && this.direction === "left") ||
-      (bombPosition.x < bombGridPosition.x && this.direction === "right") ||
-      (bombPosition.y > bombGridPosition.y && this.direction === "up") ||
-      (bombPosition.y < bombGridPosition.y && this.direction === "down")
+      bombPosition.x > bombGridPosition.x ||
+      bombPosition.x < bombGridPosition.x ||
+      bombPosition.y > bombGridPosition.y ||
+      bombPosition.y < bombGridPosition.y
     ) {
-      return true;
+      return;
     } else if (nextGrid instanceof Block) {
       this.explode();
     }
@@ -92,7 +95,7 @@ export default class Bomb {
       ];
     }
 
-    map.grid[gridPosition.x][gridPosition.y] = null;
+    map.bombs.splice(map.bombs.indexOf(this), 1);
 
     for (const [offsetX, offsetY] of bombOffsets) {
       let newPosition = {
@@ -157,9 +160,6 @@ export default class Bomb {
     if (this.thrown === false) {
       this.thrown = true;
       this.throwDirection = throwDirection;
-      map.grid[this.position.getGridPosition().x][
-        this.position.getGridPosition().y
-      ] = null;
     }
   }
 }

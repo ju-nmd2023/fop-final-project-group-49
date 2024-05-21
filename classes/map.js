@@ -9,6 +9,7 @@ export default class Map {
     this.marginLeft = (1000 - width) / 2; // The left margin of the map. To center the map when drawn
     this.marginTop = (1000 - height) / 2; // The top margin of the map. To center the map when drawn
     this.grid = [];
+    this.bombs = [];
     this.powerupTypes = ["bomb", "slow", "speed", "life", "extrabomb"];
     this.block;
     this.centerBuilding = 0;
@@ -35,6 +36,10 @@ export default class Map {
           yRow.draw();
         }
       });
+    });
+
+    this.bombs.forEach((bomb) => {
+      bomb.draw();
     });
     // Rect under img
     rect(

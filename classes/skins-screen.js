@@ -70,7 +70,6 @@ export default class SkinsScreen {
       }
       this.activeSkins[player] = newIndex;
       this.highlightedSkinIndex[player] = newIndex;
-      console.log("Player", player + 1, "selected Skin", newIndex);
     }
   }
 
@@ -128,7 +127,7 @@ export default class SkinsScreen {
             xPosition + 10,
             yPosition - 50,
             300,
-            400
+            400,
           );
         }
       }

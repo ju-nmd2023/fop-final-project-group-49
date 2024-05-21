@@ -49,7 +49,7 @@ function preload() {
   // Loading all fonts, pictures, sounds etc
   font = loadFont("assets/AGENTORANGE.TTF");
   introSong = loadSound(
-    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3"
+    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3",
   );
   fartSound = loadSound("assets/fart-with-reverb-39675.mp3");
   shortFartSound = loadSound("assets/babeldirections/fart-83471.mp3");
@@ -159,9 +159,7 @@ async function setup() {
 
   playerList = [player1, player2];
 
-  await map.generate(1);
-
-  console.log(map.grid);
+  await map.generate(Math.floor(Math.random() * 2));
 }
 
 function draw() {
@@ -232,7 +230,6 @@ function draw() {
 
 // First used ternary statements which gemini said was unessecary 20-05-2014. "variable itself is the result of the function which is what the ternary statement is checking"
 function mouseClicked(event) {
-  console.log(event);
   if (gameState === START_SCREEN) {
     if (startScreen.mouseClicked(event) === true) {
       gameState = SKINS_SCREEN;
