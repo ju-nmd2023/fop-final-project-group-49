@@ -1,6 +1,7 @@
 import Point from "./point.js";
 import { map, playerList, bombImg, shortFartSound } from "../main.js";
 import Block from "./block.js";
+import Powerup from "./powerup.js";
 
 export default class Bomb {
   constructor(x, y, size, powerBomb, playerId) {
@@ -9,27 +10,63 @@ export default class Bomb {
     this.timeToExlode = 180;
     this.powerBomb = powerBomb;
     this.playerId = playerId;
+    this.thrown = false;
+    this.throwDirection = null;
   }
 
   draw() {
-    push();
     // Drawing image of bomb
     image(
       bombImg,
       this.position.pixelX,
       this.position.pixelY,
       this.size,
-      this.size
+      this.size,
     );
-    pop();
     this.update();
   }
 
   update() {
-    this.timeToExlode--;
+    if (this.thrown === true) {
+      let speed = 4;
+      this.bombCollision(this.throwDirection.x, this.throwDirection.y);
+      this.position.x -= this.throwDirection.x * speed;
+      this.position.pixelX -= this.throwDirection.x * speed;
+      this.position.y -= this.throwDirection.y * speed;
+      this.position.pixelY -= this.throwDirection.y * speed;
+    } else {
+      this.timeToExlode--;
+    }
+
     if (this.timeToExlode <= 0) {
       this.explode();
       shortFartSound.play();
+    }
+  }
+
+  bombCollision(throwDirectionX, throwDirectionY) {
+    let bombGridPosition = this.position.getGridPosition();
+    let nextGrid =
+      map.grid[bombGridPosition.x - throwDirectionX]?.[
+        bombGridPosition.y - throwDirectionY
+      ];
+
+    let bombPosition = {
+      x: this.position.x / this.size,
+      y: this.position.y / this.size,
+    };
+
+    if (
+      nextGrid === null ||
+      nextGrid instanceof Powerup ||
+      bombPosition.x > bombGridPosition.x ||
+      bombPosition.x < bombGridPosition.x ||
+      bombPosition.y > bombGridPosition.y ||
+      bombPosition.y < bombGridPosition.y
+    ) {
+      return;
+    } else if (nextGrid instanceof Block) {
+      this.explode();
     }
   }
 
@@ -58,7 +95,7 @@ export default class Bomb {
       ];
     }
 
-    map.grid[gridPosition.x][gridPosition.y] = null;
+    map.bombs.splice(map.bombs.indexOf(this), 1);
 
     for (const [offsetX, offsetY] of bombOffsets) {
       let newPosition = {
@@ -96,7 +133,13 @@ export default class Bomb {
           player.position.getGridPosition().x == newPosition.x &&
           player.position.getGridPosition().y == newPosition.y
         ) {
-          player.die();
+          if (middlePosition) {
+            if (!map.grid[middlePosition.x][middlePosition.y]?.indestructible) {
+              player.die();
+            }
+          } else {
+            player.die();
+          }
         }
       });
 
@@ -111,6 +154,12 @@ export default class Bomb {
           map.grid[newPosition.x][newPosition.y].destroy();
         }
       }
+    }
+  }
+  throw(throwDirection) {
+    if (this.thrown === false) {
+      this.thrown = true;
+      this.throwDirection = throwDirection;
     }
   }
 }

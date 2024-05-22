@@ -1,4 +1,5 @@
-import { font, loser, sidebar } from "../main.js";
+import { font, loser, sidebar, player1, player2 } from "../main.js";
+import Player from "../classes/player.js";
 
 export default class Result {
   // Result screen
@@ -8,8 +9,14 @@ export default class Result {
     textFont(font);
     if (loser === 0) {
       text("Player 2 wins!", x, y - 40); //player 0 is now player 1
-    } else {
+    } else if (loser == !0) {
       text("Player 1 wins!", x, y - 40); //player 1 is now player 2
+    } else if (player1.lives < player2.lives) {
+      text("Player 2 wins!", x, y - 40); //player 0 is now player 1
+    } else if (player1.lives > player2.lives) {
+      text("Player 1 wins!", x, y - 40); //player 1 is now player 2
+    } else {
+      text("It's a draw! Suckers!", x, y - 40);
     }
   }
 

@@ -69,7 +69,7 @@ export default class Player {
       this.position.pixelX,
       this.position.pixelY,
       this.size,
-      this.size
+      this.size,
     );
 
     this.updatePickup();
@@ -81,40 +81,30 @@ export default class Player {
   }
 
   placeBomb() {
-    let bombPlaced = false;
+    let placedBombs = 0;
 
-    map.grid.forEach((xRow) => {
-      // loops through grid map for bombs
-      xRow.forEach((yRow) => {
-        if (yRow instanceof Bomb) {
-          // checks if bomb has same id as player
-          if (yRow.playerId === this.id) {
-            bombPlaced = true;
-          }
-        }
-      });
+    map.bombs.forEach((bomb) => {
+      if (bomb.playerId === this.id) {
+        placedBombs += 1;
+      }
     });
 
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
-    if (bombPlaced === false) {
+
+    if (
+      placedBombs <
+      this.powerups.filter((pwrUp) => pwrUp.type === "extrabomb").length + 1
+    ) {
       if (this.powerups.some((obj) => obj.type === "bomb")) {
         // checks if you have powerup or not
-        map.grid[x][y] = new Bomb(
-          x * this.size,
-          y * this.size,
-          this.size,
-          true,
-          this.id
+        map.bombs.push(
+          new Bomb(x * this.size, y * this.size, this.size, true, this.id),
         );
       } else {
         // If no bomb is placed, you can place a bomb, else you cant
-        map.grid[x][y] = new Bomb(
-          x * this.size,
-          y * this.size,
-          this.size,
-          false,
-          this.id
+        map.bombs.push(
+          new Bomb(x * this.size, y * this.size, this.size, false, this.id),
         );
       }
     }
@@ -236,6 +226,23 @@ export default class Player {
       x: this.position.x / this.size,
       y: this.position.y / this.size,
     };
+
+    map.bombs.forEach((bomb) => {
+      let distance = {
+        x:
+          this.position.getGridPosition().x - bomb.position.getGridPosition().x,
+        y:
+          this.position.getGridPosition().y - bomb.position.getGridPosition().y,
+      };
+
+      if (
+        (distance.x === 1 && this.direction === "left" && distance.y === 0) ||
+        (distance.x === -1 && this.direction === "right" && distance.y === 0) ||
+        (distance.y === 1 && this.direction === "up" && distance.x === 0) ||
+        (distance.y === -1 && this.direction === "down" && distance.x === 0)
+      )
+        bomb.throw(distance);
+    });
 
     if (
       nextGrid === null ||

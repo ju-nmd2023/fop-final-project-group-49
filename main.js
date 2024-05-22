@@ -36,8 +36,11 @@ export let bombImg;
 export let introSong;
 export let fartSound;
 export let shortFartSound;
+export let battleSound;
 export let buildings;
 export let logo;
+let songPlaying = false;
+
 export let winner;
 export let loser;
 let loserFound = false;
@@ -46,10 +49,11 @@ function preload() {
   // Loading all fonts, pictures, sounds etc
   font = loadFont("assets/AGENTORANGE.TTF");
   introSong = loadSound(
-    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3"
+    "assets/Local Multiplayer Game The Neighborhood (Updated) - AirConsole Game List.mp3",
   );
   fartSound = loadSound("assets/fart-with-reverb-39675.mp3");
   shortFartSound = loadSound("assets/babeldirections/fart-83471.mp3");
+  battleSound = loadSound("assets/battle.mp3");
   speedPwrImage = {
     speedPwrImage: loadImage("assets/hotshot.png"),
     slowPwrImage: loadImage("assets/ladokU.png"),
@@ -147,77 +151,89 @@ async function setup() {
   createCanvas(1000, 1000);
   background(150, 150, 150);
   introSong.loop();
+  battleSound.stop();
+  songPlaying = false;
 
   player1 = new Player(0, 120, 120, size);
   player2 = new Player(1, 720, 600, size);
 
   playerList = [player1, player2];
 
-  await map.generate(1);
-
-  console.log(map.grid);
+  await map.generate(Math.floor(Math.random() * 2) + 1);
 }
 
 function draw() {
-  clear();
+  if (sidebar.isPaused === true) {
+    rect();
+    textSize(80);
+    text("PAUSED", width / 2 - 150, height / 2 - 100, 300, 200);
+  } else {
+    clear();
 
-  // Game state logic
-  if (gameState === START_SCREEN) {
-    startScreen.draw();
-  } else if (gameState === SKINS_SCREEN) {
-    skinsScreen.draw();
-  } else if (gameState === GAME_SCREEN) {
-    map.draw();
-    image(logo, width / 2 - 190, height / 2 - 520, 380, 150);
-    playerList.forEach((player) => {
-      // loops through players of their lives, if no lives left, change to gamestate 4.
-      if (player?.lives === 0) {
-        gameState = 4;
-        loserFound = true;
-        loser = player.id;
+    // Game state logic
+    if (gameState === START_SCREEN) {
+      startScreen.draw();
+    } else if (gameState === SKINS_SCREEN) {
+      skinsScreen.draw();
+    } else if (gameState === GAME_SCREEN) {
+      if (songPlaying === false) {
+        battleSound.loop();
+        songPlaying = true;
       }
-    });
-    playerList.forEach((player) => player?.draw());
-    sidebar.draw();
-  } else if (gameState === RESULT_SCREEN) {
-    resultScreen.draw();
-    resultScreen.mouseClickedChangeSkin(); // Call mouseClicked() within Result class
-    resultScreen.mouseClickedPlayAgain();
-  }
-  // player 1 movement
-  if (gameState === GAME_SCREEN) {
-    if (keyIsDown(UP_ARROW)) {
-      player1.moveUp();
-    } else if (keyIsDown(DOWN_ARROW)) {
-      player1.moveDown();
-    } else if (keyIsDown(LEFT_ARROW)) {
-      player1.moveLeft();
-    } else if (keyIsDown(RIGHT_ARROW)) {
-      player1.moveRight();
+      map.draw();
+      image(logo, width / 2 - 190, height / 2 - 520, 380, 150);
+      playerList.forEach((player) => {
+        // loops through players of their lives, if no lives left, change to gamestate 4.
+        if (player?.lives === 0) {
+          gameState = 4;
+          loserFound = true;
+          loser = player.id;
+        }
+      });
+      playerList.forEach((player) => player?.draw());
+      sidebar.draw();
+      if (sidebar.countDown <= 0) {
+        gameState = 4;
+      }
+    } else if (gameState === RESULT_SCREEN) {
+      resultScreen.draw();
+      resultScreen.mouseClickedChangeSkin(); // Call mouseClicked() within Result class
+      resultScreen.mouseClickedPlayAgain();
     }
+    // player 1 movement
+    if (gameState === GAME_SCREEN) {
+      if (keyIsDown(UP_ARROW)) {
+        player1.moveUp();
+      } else if (keyIsDown(DOWN_ARROW)) {
+        player1.moveDown();
+      } else if (keyIsDown(LEFT_ARROW)) {
+        player1.moveLeft();
+      } else if (keyIsDown(RIGHT_ARROW)) {
+        player1.moveRight();
+      }
 
-    if (keyIsDown(BACKSPACE)) {
-      player1.placeBomb();
-    }
-    // player 2 movement
-    if (keyIsDown(87)) {
-      player2.moveUp();
-    } else if (keyIsDown(83)) {
-      player2.moveDown();
-    } else if (keyIsDown(65)) {
-      player2.moveLeft();
-    } else if (keyIsDown(68)) {
-      player2.moveRight();
-    }
-    if (keyIsDown(32)) {
-      player2.placeBomb();
+      if (keyIsDown(BACKSPACE)) {
+        player1.placeBomb();
+      }
+      // player 2 movement
+      if (keyIsDown(87)) {
+        player2.moveUp();
+      } else if (keyIsDown(83)) {
+        player2.moveDown();
+      } else if (keyIsDown(65)) {
+        player2.moveLeft();
+      } else if (keyIsDown(68)) {
+        player2.moveRight();
+      }
+      if (keyIsDown(32)) {
+        player2.placeBomb();
+      }
     }
   }
 }
 
 // First used ternary statements which gemini said was unessecary 20-05-2014. "variable itself is the result of the function which is what the ternary statement is checking"
 function mouseClicked(event) {
-  console.log(event);
   if (gameState === START_SCREEN) {
     if (startScreen.mouseClicked(event) === true) {
       gameState = SKINS_SCREEN;
