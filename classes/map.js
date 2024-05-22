@@ -61,6 +61,8 @@ export default class Map {
   async generate(i) {
     loadJSON(`../maps/map${i}.json`, (data) => {
       let map = data;
+      this.grid = [];
+      this.bombs = [];
       this.centerBuilding = Math.floor(Math.random() * buildings.length); // Randomizes placement of buidlnings
       // This creates all blocks in the grid
       for (let xIndex = 0; xIndex < map.length; xIndex++) {

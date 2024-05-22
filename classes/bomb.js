@@ -34,6 +34,16 @@ export default class Bomb {
       this.position.pixelX -= this.throwDirection.x * speed;
       this.position.y -= this.throwDirection.y * speed;
       this.position.pixelY -= this.throwDirection.y * speed;
+
+      if (
+        this.position.x < 0 ||
+        this.position.y < 0 ||
+        this.position.x > map.width - map.gridSize ||
+        this.position.y > map.height - map.gridSize
+      ) {
+        this.explode();
+      } else {
+      }
     } else {
       this.timeToExlode--;
     }
@@ -156,6 +166,7 @@ export default class Bomb {
       }
     }
   }
+
   throw(throwDirection) {
     if (this.thrown === false) {
       this.thrown = true;

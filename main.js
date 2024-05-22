@@ -59,6 +59,7 @@ function preload() {
     slowPwrImage: loadImage("assets/ladokU.png"),
     bigBombPwrImage: loadImage("assets/billys.png"),
     lifePwrImage: loadImage("assets/resorb.png"),
+    extraBombPwrImage: loadImage("assets/Bag.png"),
   };
 
   bombImg = loadImage("assets/Bomb.png");
@@ -202,30 +203,30 @@ function draw() {
     }
     // player 1 movement
     if (gameState === GAME_SCREEN) {
-      if (keyIsDown(UP_ARROW)) {
+      if (keyIsDown(87)) {
         player1.moveUp();
-      } else if (keyIsDown(DOWN_ARROW)) {
+      } else if (keyIsDown(83)) {
         player1.moveDown();
-      } else if (keyIsDown(LEFT_ARROW)) {
+      } else if (keyIsDown(65)) {
         player1.moveLeft();
-      } else if (keyIsDown(RIGHT_ARROW)) {
+      } else if (keyIsDown(68)) {
         player1.moveRight();
       }
 
-      if (keyIsDown(BACKSPACE)) {
+      if (keyIsDown(32)) {
         player1.placeBomb();
       }
       // player 2 movement
-      if (keyIsDown(87)) {
+      if (keyIsDown(UP_ARROW)) {
         player2.moveUp();
-      } else if (keyIsDown(83)) {
+      } else if (keyIsDown(DOWN_ARROW)) {
         player2.moveDown();
-      } else if (keyIsDown(65)) {
+      } else if (keyIsDown(LEFT_ARROW)) {
         player2.moveLeft();
-      } else if (keyIsDown(68)) {
+      } else if (keyIsDown(RIGHT_ARROW)) {
         player2.moveRight();
       }
-      if (keyIsDown(32)) {
+      if (keyIsDown(BACKSPACE)) {
         player2.placeBomb();
       }
     }

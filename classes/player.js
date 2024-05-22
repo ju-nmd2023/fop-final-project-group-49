@@ -89,12 +89,26 @@ export default class Player {
       }
     });
 
+    //bomb on top of each other
+    let bombOnTop = false;
+    map.bombs.forEach((bomb) => {
+      if (
+        bomb.position.getGridPosition().x ===
+          this.position.getGridPosition().x &&
+        bomb.position.getGridPosition().y === this.position.getGridPosition().y
+      ) {
+        bombOnTop = true;
+      }
+    });
+
     const x = this.position.getGridPosition().x;
     const y = this.position.getGridPosition().y;
 
     if (
       placedBombs <
-      this.powerups.filter((pwrUp) => pwrUp.type === "extrabomb").length + 1
+        this.powerups.filter((pwrUp) => pwrUp.type === "extrabomb").length +
+          1 &&
+      bombOnTop === false
     ) {
       if (this.powerups.some((obj) => obj.type === "bomb")) {
         // checks if you have powerup or not

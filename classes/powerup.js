@@ -19,7 +19,7 @@ export default class Powerup {
         this.position.pixelX - this.size / 2,
         this.position.pixelY - this.size / 2,
         this.size,
-        this.size
+        this.size,
       );
     } else if (this.type === "slow") {
       image(
@@ -27,7 +27,7 @@ export default class Powerup {
         this.position.pixelX - this.size / 2,
         this.position.pixelY - this.size / 2,
         this.size,
-        this.size
+        this.size,
       );
     } else if (this.type === "bomb") {
       image(
@@ -35,7 +35,7 @@ export default class Powerup {
         this.position.pixelX - this.size / 2,
         this.position.pixelY - this.size / 2,
         this.size,
-        this.size
+        this.size,
       );
     } else if (this.type === "life") {
       image(
@@ -43,7 +43,15 @@ export default class Powerup {
         this.position.pixelX - this.size / 2,
         this.position.pixelY - this.size / 2,
         this.size,
-        this.size
+        this.size,
+      );
+    } else if (this.type === "extrabomb") {
+      image(
+        speedPwrImage.extraBombPwrImage,
+        this.position.pixelX - this.size / 2,
+        this.position.pixelY - this.size / 2,
+        this.size,
+        this.size,
       );
     }
     pop();
