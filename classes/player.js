@@ -83,13 +83,14 @@ export default class Player {
   placeBomb() {
     let placedBombs = 0;
 
+    //count amount of bombs already placed
     map.bombs.forEach((bomb) => {
       if (bomb.playerId === this.id) {
         placedBombs += 1;
       }
     });
 
-    //bomb on top of each other
+    //check if bomb on top of each other
     let bombOnTop = false;
     map.bombs.forEach((bomb) => {
       if (
