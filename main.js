@@ -72,7 +72,7 @@ function preload() {
     ],
     destructible: [
       loadImage("assets/Bulle.png"),
-      loadImage("assets/tree.png"),
+      loadImage("assets/Tree.png"),
       loadImage("assets/Lamp.png"),
     ],
     screenSkins: [
@@ -85,7 +85,7 @@ function preload() {
     ],
   };
   buildings = [
-    loadImage("assets/Jth.png"),
+    loadImage("assets/JTH.png"),
     loadImage("assets/Aka.png"),
     loadImage("assets/Systembolaget.png"),
   ];
