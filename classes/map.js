@@ -59,7 +59,7 @@ export default class Map {
   }
 
   async generate(i) {
-    loadJSON(`../maps/map${i}.json`, (data) => {
+    loadJSON(`maps/map${i}.json`, (data) => {
       let map = data;
       this.grid = [];
       this.bombs = [];
